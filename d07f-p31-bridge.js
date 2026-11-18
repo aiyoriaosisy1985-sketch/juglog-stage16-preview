@@ -641,26 +641,6 @@ async function directGames(change=null){
 document.getElementById('p8-games-submit').addEventListener('click',()=>void directGames());
 document.getElementById('p8-games').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();document.getElementById('p8-games').blur();void directGames();}});
 for(const [id,n] of [['p8-quick50',50],['p8-quick100',100],['p8-stage14-minus10',-10]])document.getElementById(id)?.addEventListener('click',()=>void directGames(n));
-// Stage 12: -50G is deliberately limited to cancelling the last +50G entry.
-// Existing journal cancellation preserves history and measured-G calculations.
-async function stage12Minus50(){
- if(p8WriteBlocked()){setDirectStatus('保存状態の確認が必要です。');return;}
- let api,eligibility;
- try{api=frame.contentWindow?.__p8CountApi;eligibility=api?.minus50Candidate();}
- catch(_e){setDirectStatus('訂正機能に接続できません。');return;}
- if(!eligibility?.ready){setDirectStatus(eligibility?.reason||'直前の+50G入力のみ訂正できます。');return;}
- const epoch=foregroundEpoch;
- if(!await v122Confirm('直前の+50G入力を取り消しますか？\n取消記録は履歴に残ります。'))return;
- if(!foregroundUnchanged(epoch)||p8WriteBlocked()){setDirectStatus('確認中に状態が変わりました。訂正はしていません。');return;}
- directPending=true;updateDirectButtons();setDirectStatus('50Gの訂正を保存しています…');
- try{
-  const result=await api.minus50Latest();
-  if(result?.status==='saved-and-refreshed'){setDirectStatus('直前の+50Gを取り消しました。');sync();}
-  else if(result?.status==='rejected'){setDirectStatus(result.reason||'直前の+50Gを訂正できませんでした。');sync();}
-  else{directUncertain=true;setDirectStatus('保存結果が不明です。再操作せず保存データを確認してください。');}
- }catch(_e){directUncertain=true;setDirectStatus('保存結果が不明です。再操作せず保存データを確認してください。');}
- finally{directPending=false;updateDirectButtons();}
-}
 // Stage14 Candidate3: hide the legacy -50G shortcut; retain P31 cancellation API for historical records.
 // UI preference only; never retroactively changes any GAMES_RECORDED event or inference denominator.
 const measuredEl=document.getElementById('p8-measured');
