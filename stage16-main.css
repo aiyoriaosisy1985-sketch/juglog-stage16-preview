@@ -237,6 +237,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%;}
 @media(max-width:359px){
   #panel-play .button-grid{gap:5px;}
   #panel-play .button-grid .key .symbol{font-size:clamp(21px,7vw,33px);}
+  #panel-play .button-grid .key:is(.bb,.rb) .symbol{font-size:clamp(41px,13vw,47px);top:21px;}
   #panel-play .button-grid .key:is(.grape,.cherry) .symbol{font-size:clamp(19px,5.5vw,26px);}
   #panel-play .button-grid .key .count{font-size:14px;}
 }
@@ -320,11 +321,11 @@ html[data-theme=light] #p8-since-bb{color:#b51f4a;}html[data-theme=light] #p8-si
 #panel-play .p8-games-form .p8-measure{margin-top:0;padding:3px 0 2px;line-height:1.3;min-height:32px;}
 
 #panel-play .button-grid .keywrap>.key{height:116px!important;overflow:hidden;}
-#panel-play .button-grid .key:is(.grape,.cherry) .fruit{height:52px;top:6px;}
-#panel-play .button-grid .key:is(.grape,.cherry) .count{bottom:25px!important;font-size:18px;}
-#panel-play .button-grid .key .key-rate{bottom:9px!important;line-height:1.2;font-size:12px;white-space:nowrap;pointer-events:none;}
-#panel-play .button-grid .key:is(.bb,.rb) .count{bottom:18px;}
-#panel-play .button-grid .key:is(.bb,.rb) .symbol{top:29px;}
+#panel-play .button-grid .key:is(.grape,.cherry) .fruit{height:58px;top:7px;left:50%;width:96px;transform:translateX(-50%);filter:drop-shadow(0 2px 2px #00160e80);}
+#panel-play .button-grid .key:is(.grape,.cherry) .count{bottom:24px!important;font-size:20px;font-family:Georgia,"Times New Roman",serif;color:#fff0ca;text-shadow:0 1px 1px #fff8e54d,0 2px 2px #281206b0;}
+#panel-play .button-grid .key .key-rate{bottom:8px!important;line-height:1.2;font-size:12px;white-space:nowrap;pointer-events:none;font-family:Georgia,"Times New Roman",serif;color:#fff0ca;text-shadow:0 2px 3px #0009;}
+#panel-play .button-grid .key:is(.bb,.rb) .count{bottom:18px;font-family:Georgia,"Times New Roman",serif;color:#fff0ca;text-shadow:0 1px 1px #fff8e54d,0 2px 2px #281206b0;}
+#panel-play .button-grid .key:is(.bb,.rb) .symbol{top:18px;font-size:clamp(45px,13.5vw,56px);line-height:1;letter-spacing:-2.5px;font-family:Georgia,"Times New Roman",serif;font-weight:800;color:#fff0ca;-webkit-text-stroke:.45px #ac7e40;text-shadow:0 1px 0 #fff8e5,0 2px 0 #a87836,0 3px 1px #583416,0 4px 3px #160b0ba8;}
 #panel-play .button-grid .fruit-minus{z-index:6;}
 #p8-hall-form{scroll-margin-top:18px;scroll-margin-bottom:calc(100px + env(safe-area-inset-bottom));}
 @media(max-width:374px){#panel-play .button-grid .keywrap>.key{height:111px!important;}#panel-play .button-grid .key:is(.grape,.cherry) .fruit{height:48px;}}
@@ -388,13 +389,14 @@ html[data-theme="light"]{ --v122-accent:#36745c; --v122-border:rgba(48,116,86,.7
 /* Compact explicit input row; no duplicated submit button. */
 
 #panel-play .v122-game-entry-line input{min-width:0;width:100%;height:46px;min-height:46px;margin:0;font-size:16px;}
-#panel-play .v122-game-entry-line #p8-games-submit{min-height:46px;height:46px;white-space:nowrap;font-weight:800;}
+#panel-play .v122-game-entry-line #p8-games-submit{min-height:46px;height:46px;white-space:nowrap;font-weight:800;border:1px solid #f3d29a;background:radial-gradient(ellipse at 30% 1%,#fff7cf91,transparent 55%),linear-gradient(155deg,#dfaf5b,#a66a22 54%,#613a15);box-shadow:inset 0 1px 1px #fffa,inset 0 -2px 2px #0008,0 3px 0 #42260d,0 5px 7px #0007;color:#fff8e9;text-shadow:0 1px 2px #211208;}
 
 #panel-play .quick-game-actions button{min-height:46px;font-size:clamp(12px,3.5vw,15px);white-space:nowrap;padding-inline:2px;}
 
 #panel-play .quick-game-actions #p8-minus50{border-color:var(--v122-border);background:linear-gradient(145deg,#315e4f,#143a2e);color:#f0dfb9;}
 html[data-theme="light"] #panel-play .quick-game-actions #p8-minus50{background:linear-gradient(150deg,#d7eee1,#9ecbb8);border-color:#538f77;color:#174632!important;}
 /* Explicit color accessibility: no dark type on blue action buttons. */
+#panel-play #p8-quick50,#panel-play #p8-quick100{border:1px solid #83d2dc!important;background:radial-gradient(ellipse at 25% 3%,#e7ffff77,transparent 54%),linear-gradient(155deg,#6abfcf 0%,#246f8d 52%,#133d59 100%)!important;color:#fff8e9!important;box-shadow:inset 0 1px 1px #fff9,inset 0 -2px 2px #001b3888,0 3px 0 #0a2a3d,0 5px 7px #0008;text-shadow:0 1px 2px #062438;}
 html[data-theme="light"] #panel-play #p8-quick50,
 html[data-theme="light"] #panel-play #p8-quick100{color:#fff!important;text-shadow:0 1px 2px #143b68!important;}
 html[data-theme="light"] #panel-play .p8-session-buttons button,
@@ -404,8 +406,14 @@ html[data-theme="light"] #panel-play .p8-session-switch select{background:#2a4e6
 html[data-theme="light"] #panel-play .p8-session-buttons button:disabled,
 html[data-theme="light"] #panel-play #p8-session-switch-btn:disabled{color:#a1b7af!important;background:#e8efeb!important;border-color:#94b5a5!important;opacity:1!important;}
 /* A row of three session controls; full-width correction/history below. */
+#panel-play .settlement [data-p31="quickComplete"]{border:1px solid #f1cf80;background:radial-gradient(ellipse at 30% -20%,#fff4c799,transparent 75%),linear-gradient(165deg,#f5d58d,#c59036 62%,#82531e);color:#29200f;text-shadow:0 1px #fff4ca8c;box-shadow:inset 0 2px 3px #ffffffbc,inset 0 -3px 4px #7b4d2180,0 4px 6px #0007}
+#panel-play .settlement [data-p31="undoBtn"]{border:1px solid #b0c2be;background:radial-gradient(ellipse at 28% -18%,#e0f0eb83,transparent 74%),linear-gradient(165deg,#8da5a5,#536d70 58%,#293d43);color:#fff8ed;text-shadow:0 1px 2px #142629;box-shadow:inset 0 2px 3px #ffffff91,inset 0 -3px 4px #1b303790,0 4px 6px #0007}
 #panel-play .p8-session-actions>.p8-session-buttons{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;}
 #panel-play .p8-session-actions>.p8-session-buttons button{grid-column:auto;min-width:0;padding:9px 3px;white-space:nowrap;font-size:clamp(12px,3.4vw,15px);}
+#panel-play .p8-session-actions>.p8-session-buttons button:is([data-p8-session-action="pause"],[data-p8-session-action="resume"],[data-p8-session-action="close"]){position:relative;isolation:isolate;overflow:hidden;border-radius:11px;min-height:61px;border:1px solid var(--edge);background:radial-gradient(ellipse 105% 52% at 23% -5%,#ffffff83,transparent 72%),linear-gradient(158deg,var(--top),var(--mid) 49%,var(--low));box-shadow:inset 0 1px 1px #fffa,inset 0 -2px 2px #0008,0 3px 0 var(--deep),0 5px 8px #0007;color:#fff7e8;font-weight:800;text-shadow:0 1px 2px #0008}
+#panel-play .p8-session-actions>.p8-session-buttons [data-p8-session-action="pause"]{--top:#8d9f9e;--mid:#586c72;--low:#293a42;--deep:#19252a;--edge:#c3d0cc}
+#panel-play .p8-session-actions>.p8-session-buttons [data-p8-session-action="resume"]{--top:#85c6b8;--mid:#347e70;--low:#194d45;--deep:#103a32;--edge:#abded0}
+#panel-play .p8-session-actions>.p8-session-buttons [data-p8-session-action="close"]{--top:#b97d85;--mid:#753942;--low:#401e2b;--deep:#29131c;--edge:#d7a4a3}
 #panel-play .p8-session-actions>.p8-session-buttons button:last-child{grid-column:1/-1;}
 /* Reconciliation controls: same row, active only when action requires it (disabled state preserves informative label). */
 #panel-play .v122-reconcile-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:stretch;margin:7px 0;}
@@ -574,8 +582,8 @@ html[data-theme="dark"] #panel-history .p8-correction-row button:disabled {
 #panel-play .stage14-input-feedback:not(:empty){margin:3px 0 4px;min-height:0;}
 #panel-play .p8-measure{padding:3px 0;margin:0;min-height:32px;}
 #panel-play .quick-game-actions{margin-top:1px;}
-#panel-play #p8-stage14-minus10{border:1px solid #ffadb4!important;background:linear-gradient(160deg,#a83d50,#681c30)!important;color:#fff5f6!important;text-shadow:0 1px 2px #43121d;}
-html[data-theme="light"] #panel-play #p8-stage14-minus10{border-color:#bb5364!important;background:linear-gradient(160deg,#d96978,#a52e4e)!important;color:#fff!important;}
+#panel-play #p8-stage14-minus10{border:1px solid #d5b09b!important;background:radial-gradient(ellipse at 25% 3%,#ffe5cc73,transparent 54%),linear-gradient(155deg,#9e8077 0%,#6d4c49 54%,#3d292d 100%)!important;color:#fff8e9!important;box-shadow:inset 0 1px 1px #fff7,inset 0 -2px 2px #1e0c0b9c,0 3px 0 #29191b,0 5px 7px #0008;text-shadow:0 1px 2px #1e0c0b;}
+html[data-theme="light"] #panel-play #p8-stage14-minus10{border-color:#a88c83!important;background:linear-gradient(155deg,#b99a90,#805d59 54%,#594047)!important;color:#fff8e9!important;}
 #panel-play #p8-stage14-minus10:focus-visible{outline:3px solid #ffe5ac;outline-offset:2px;}
 #panel-history .stage14-history-sessions-toggle{width:100%;min-height:44px;margin:-5px 0 16px;padding:10px 12px;border-radius:11px;border:1px solid #c6a96b;background:linear-gradient(150deg,#235c47,#123d32);color:#f8ebc7;font-weight:700;font-size:14px;cursor:pointer;}
 html[data-theme="light"] #panel-history .stage14-history-sessions-toggle{background:linear-gradient(145deg,#dcece1,#a6ccb5);color:#20543a;border-color:#669e7d;}
@@ -594,7 +602,7 @@ html[data-theme="light"] #stage14-fixed-complete{background:linear-gradient(130d
 /* Stage15 Candidate8: isolated UI additions, never reposition existing counter rows. */
 #panel-play .p8-counter-heading{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;align-items:center;min-height:42px;}
 #panel-play .p8-counter-heading h1{min-width:0;white-space:nowrap;margin:0;font-size:clamp(17px,5vw,23px);}
-#jgl15-grape-open{white-space:nowrap;min-height:42px;border:1px solid #e2c67b;border-radius:10px;background:#a9d83e;color:#193716;font-size:clamp(11px,2.7vw,13px);font-weight:850;padding:0 7px;box-shadow:inset 0 1px 1px #edffac,0 3px 5px #001f18;}
+#jgl15-grape-open{white-space:nowrap;min-height:42px;border:1px solid #c6dc79;border-radius:13px;background:radial-gradient(ellipse 95% 60% at 30% -12%,#e9ffab9b,transparent 88%),linear-gradient(160deg,#a7d548,#75ac32 52%,#3e751d 100%);color:#163c16;font-size:clamp(11px,2.7vw,13px);font-weight:850;padding:0 7px;box-shadow:inset 0 2px 2px #f6ffd3ab,inset 0 -3px 4px #254d199e,0 0 0 1px #405b2b91,0 4px 7px #0008;}
 #panel-play .p8-counter-heading #p8-create-session{white-space:nowrap;min-height:42px;max-width:100%;font-size:clamp(11px,2.8vw,14px);padding-inline:6px;}
 #panel-play .v122-game-entry-line{display:grid;grid-template-columns:minmax(0,1fr) minmax(76px,auto) 46px;gap:6px;align-items:stretch;}
 #panel-play .v122-game-entry-line #p8-games-submit{width:auto;min-width:76px;padding:0 5px;font-size:clamp(11px,3vw,14px);}
