@@ -46,7 +46,7 @@
 /* v47: compact event correction controls */
 .p8-history-corrections{margin:12px 0;padding:10px;border:1px solid var(--line, #555);border-radius:12px;}.p8-correction-row{display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-top:1px solid var(--line,#555);}.p8-correction-row span{overflow-wrap:anywhere;min-width:0;}.p8-correction-row button{flex-shrink:0;}
 
-.p8-session-switch{display:grid;}.p8-session-switch select,.p8-session-switch button{min-width:0;width:100%;padding:9px;border-radius:9px;border:1px solid #b3c6d9;background:radial-gradient(ellipse at 45% -15%,#b0d9ef58,transparent 80%),linear-gradient(160deg,#345778,#213950 55%,#14283f);color:#f1f6fc;font:inherit;box-shadow:inset 0 2px 1px #e6f6ff88,inset 0 -3px 4px #0610219e,0 4px 7px #0007;}
+.p8-session-switch{display:grid;}.p8-session-switch select,.p8-session-switch button{min-width:0;width:100%;padding:9px;border-radius:9px;border:1px solid #b3c6d9;background:radial-gradient(ellipse at 45% -15%,#b0d9ef58,transparent 80%),linear-gradient(160deg,#345778,#213950 55%,#14283f);color:#f5e1b7;font:inherit;box-shadow:inset 0 2px 1px #e6f6ff88,inset 0 -3px 4px #0610219e,0 4px 7px #0007;}
 
 /* v5.1: QA interface hierarchy; gameplay actions and app storage are unchanged. */
 .p8-legacy-tools{margin-top:14px;border-top:1px solid var(--line,#749b85);padding-top:10px;}
@@ -389,14 +389,14 @@ html[data-theme="light"]{ --v122-accent:#36745c; --v122-border:rgba(48,116,86,.7
 /* Compact explicit input row; no duplicated submit button. */
 
 #panel-play .v122-game-entry-line input{min-width:0;width:100%;height:46px;min-height:46px;margin:0;font-size:16px;}
-#panel-play .v122-game-entry-line #p8-games-submit{min-height:46px;height:46px;white-space:nowrap;font-weight:800;border:1px solid #f3d29a;background:radial-gradient(ellipse at 30% 1%,#fff7cf91,transparent 55%),linear-gradient(155deg,#dfaf5b,#a66a22 54%,#613a15);box-shadow:inset 0 1px 1px #fffa,inset 0 -2px 2px #0008,0 3px 0 #42260d,0 5px 7px #0007;color:#fff8e9;text-shadow:0 1px 2px #211208;}
+#panel-play .v122-game-entry-line #p8-games-submit{min-height:46px;height:46px;white-space:nowrap;font-weight:800;border:1px solid #f3d29a;background:radial-gradient(ellipse at 30% 1%,#fff7cf91,transparent 55%),linear-gradient(155deg,#dfaf5b,#a66a22 54%,#613a15);box-shadow:inset 0 1px 1px #fffa,inset 0 -2px 2px #0008,0 3px 0 #42260d,0 5px 7px #0007;color:#f5e1b7;text-shadow:0 1px 2px #211208;}
 
 #panel-play .quick-game-actions button{min-height:46px;font-size:clamp(12px,3.5vw,15px);white-space:nowrap;padding-inline:2px;}
 
 #panel-play .quick-game-actions #p8-minus50{border-color:var(--v122-border);background:linear-gradient(145deg,#315e4f,#143a2e);color:#f0dfb9;}
 html[data-theme="light"] #panel-play .quick-game-actions #p8-minus50{background:linear-gradient(150deg,#d7eee1,#9ecbb8);border-color:#538f77;color:#174632!important;}
 /* Explicit color accessibility: no dark type on blue action buttons. */
-#panel-play #p8-quick50,#panel-play #p8-quick100{border:1px solid #83d2dc!important;background:radial-gradient(ellipse at 25% 3%,#e7ffff77,transparent 54%),linear-gradient(155deg,#6abfcf 0%,#246f8d 52%,#133d59 100%)!important;color:#fff8e9!important;box-shadow:inset 0 1px 1px #fff9,inset 0 -2px 2px #001b3888,0 3px 0 #0a2a3d,0 5px 7px #0008;text-shadow:0 1px 2px #062438;}
+#panel-play #p8-quick50,#panel-play #p8-quick100{border:1px solid #83d2dc!important;background:radial-gradient(ellipse at 25% 3%,#e7ffff77,transparent 54%),linear-gradient(155deg,#6abfcf 0%,#246f8d 52%,#133d59 100%)!important;color:#f5e1b7!important;box-shadow:inset 0 1px 1px #fff9,inset 0 -2px 2px #001b3888,0 3px 0 #0a2a3d,0 5px 7px #0008;text-shadow:0 1px 2px #062438;}
 html[data-theme="light"] #panel-play #p8-quick50,
 html[data-theme="light"] #panel-play #p8-quick100{color:#fff!important;text-shadow:0 1px 2px #143b68!important;}
 html[data-theme="light"] #panel-play .p8-session-buttons button,
@@ -404,22 +404,22 @@ html[data-theme="light"] #panel-play #p8-session-switch-btn,
 html[data-theme="light"] #panel-play .p8-session-switch select{color:#fff!important;text-shadow:none!important;}
 html[data-theme="light"] #panel-play .p8-session-switch select{background:#2a4e65!important;}
 html[data-theme="light"] #panel-play .p8-session-buttons button:disabled,
-html[data-theme="light"] #panel-play #p8-session-switch-btn:disabled{color:#a1b7af!important;background:#e8efeb!important;border-color:#94b5a5!important;opacity:1!important;}
+html[data-theme="light"] #panel-play #p8-session-switch-btn:disabled{color:#597d70!important;background:linear-gradient(155deg,#c9e3d9,#aacfc1 60%,#92b9aa)!important;border-color:#7aa797!important;opacity:.76!important;filter:saturate(.55)!important;text-shadow:none!important;cursor:not-allowed!important;}
 /* A row of three session controls; full-width correction/history below. */
 #panel-play .settlement [data-p31="quickComplete"]{border:1px solid #f1cf80;background:radial-gradient(ellipse at 30% -20%,#fff4c799,transparent 75%),linear-gradient(165deg,#f5d58d,#c59036 62%,#82531e);color:#29200f;text-shadow:0 1px #fff4ca8c;box-shadow:inset 0 2px 3px #ffffffbc,inset 0 -3px 4px #7b4d2180,0 4px 6px #0007}
 #panel-play .settlement [data-p31="undoBtn"]{border:1px solid #b0c2be;background:radial-gradient(ellipse at 28% -18%,#e0f0eb83,transparent 74%),linear-gradient(165deg,#8da5a5,#536d70 58%,#293d43);color:#fff8ed;text-shadow:0 1px 2px #142629;box-shadow:inset 0 2px 3px #ffffff91,inset 0 -3px 4px #1b303790,0 4px 6px #0007}
 #panel-play .p8-session-actions>.p8-session-buttons{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;}
 #panel-play .p8-session-actions>.p8-session-buttons button{grid-column:auto;min-width:0;padding:9px 3px;white-space:nowrap;font-size:clamp(12px,3.4vw,15px);}
-#panel-play .p8-session-actions>.p8-session-buttons button:is([data-p8-session-action="pause"],[data-p8-session-action="resume"],[data-p8-session-action="close"]){position:relative;isolation:isolate;overflow:hidden;border-radius:11px;min-height:61px;border:1px solid var(--edge);background:radial-gradient(ellipse 105% 52% at 23% -5%,#ffffff83,transparent 72%),linear-gradient(158deg,var(--top),var(--mid) 49%,var(--low));box-shadow:inset 0 1px 1px #fffa,inset 0 -2px 2px #0008,0 3px 0 var(--deep),0 5px 8px #0007;color:#fff7e8;font-weight:800;text-shadow:0 1px 2px #0008}
+#panel-play .p8-session-actions>.p8-session-buttons button:is([data-p8-session-action="pause"],[data-p8-session-action="resume"],[data-p8-session-action="close"]){position:relative;isolation:isolate;overflow:hidden;border-radius:11px;min-height:61px;border:1px solid var(--edge);background:radial-gradient(ellipse 105% 52% at 23% -5%,#ffffff83,transparent 72%),linear-gradient(158deg,var(--top),var(--mid) 49%,var(--low));box-shadow:inset 0 1px 1px #fffa,inset 0 -2px 2px #0008,0 3px 0 var(--deep),0 5px 8px #0007;color:#f5e1b7;font-weight:800;text-shadow:0 1px 2px #0008}
 #panel-play .p8-session-actions>.p8-session-buttons [data-p8-session-action="pause"]{--top:#8d9f9e;--mid:#586c72;--low:#293a42;--deep:#19252a;--edge:#c3d0cc}
 #panel-play .p8-session-actions>.p8-session-buttons [data-p8-session-action="resume"]{--top:#85c6b8;--mid:#347e70;--low:#194d45;--deep:#103a32;--edge:#abded0}
 #panel-play .p8-session-actions>.p8-session-buttons [data-p8-session-action="close"]{--top:#b97d85;--mid:#753942;--low:#401e2b;--deep:#29131c;--edge:#d7a4a3}
 #panel-play .p8-session-actions>.p8-session-buttons button:last-child{grid-column:1/-1;}
 /* Reconciliation controls: same row, active only when action requires it (disabled state preserves informative label). */
 #panel-play .v122-reconcile-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:stretch;margin:7px 0;}
-#panel-play .v122-reconcile-row button{display:block;width:100%;max-width:none;margin:0;min-height:46px;font-size:clamp(12px,3.4vw,14px);line-height:1.2;padding:7px 2px;white-space:nowrap;color:#e8d9b4;background:#194737;border:1px solid var(--v122-border);border-radius:10px;}
-html[data-theme="light"] #panel-play .v122-reconcile-row button{color:#19523b!important;background:#d6eade;border-color:#46896e;}
-#panel-play .v122-reconcile-row button:disabled{opacity:.58;}
+#panel-play .v122-reconcile-row button{display:block;width:100%;max-width:none;margin:0;min-height:46px;font-size:clamp(12px,3.4vw,14px);line-height:1.2;padding:7px 2px;white-space:nowrap;color:#f5e1b7;background:radial-gradient(ellipse 105% 56% at 30% -12%,#d1eee080,transparent 70%),linear-gradient(160deg,#508776,#235a4c 52%,#113b32);border:1px solid #9acbb5;border-radius:11px;box-shadow:inset 0 1px 1px #ffffff9e,inset 0 -2px 3px #092e26a0,0 3px 0 #12382e,0 5px 8px #0008;text-shadow:0 1px 2px #102b25;}
+html[data-theme="light"] #panel-play .v122-reconcile-row button{color:#194b38!important;background:radial-gradient(ellipse 105% 54% at 29% -14%,#ffffffd9,transparent 70%),linear-gradient(160deg,#e8f5ee,#c5dfd2 56%,#9dc6b3);border-color:#73a68f;box-shadow:inset 0 1px 1px #fff,inset 0 -2px 2px #427e6366,0 3px 0 #78a58d,0 5px 7px #1b553a35;text-shadow:none!important;}
+#panel-play .v122-reconcile-row button:disabled{opacity:.64;filter:saturate(.58);cursor:not-allowed;box-shadow:inset 0 1px 2px #fff4,0 2px 3px #0003;}
 /* The history correction ledger is collapsed by default; no loss of audit/event data. */
 #panel-history details.v122-folded-corrections{padding:8px 12px;}
 #panel-history details.v122-folded-corrections>summary{cursor:pointer;list-style:none;min-height:46px;display:flex;align-items:center;padding:9px 12px;border-radius:9px;border:1px solid var(--v122-border);color:#efdcac;font-weight:750;}
