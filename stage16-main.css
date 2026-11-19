@@ -23,13 +23,13 @@
 .p8-session-actions h2{margin:0 0 6px;font-size:1rem;}
 .p8-session-actions p{margin:4px 0 10px;font-size:.82rem;}
 .p8-session-buttons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));}
-.p8-session-buttons button{min-width:0;padding:10px 5px;border-radius:9px;border:1px solid var(--line, #607080);background:var(--surface, #243044);color:inherit;font:inherit;}
+.p8-session-buttons button{min-width:0;border-radius:9px;border:1px solid var(--line, #607080);background:var(--surface, #243044);color:inherit;font:inherit;}
 .p8-session-buttons button:last-child{grid-column:1/-1;}
 #p8-session-status:empty{display:none;}
 
 /* v4.3: selected-history correction handoff, with session identity warning */
 .p8-history-actions{display:grid;margin:0 0 14px;}
-.p8-history-actions button{min-height:44px;padding:10px 12px;text-align:center;border:1px solid var(--line,#60846f);border-radius:10px;font:inherit;}
+.p8-history-actions button{text-align:center;border:1px solid var(--line,#60846f);border-radius:10px;font:inherit;}
 .p8-history-advice{margin:0;font-size:.81rem;line-height:1.55;opacity:.85;}
 
 /* D07F native bonus confirmation; P31 remains the authoritative writer. */
@@ -80,9 +80,9 @@ html[data-theme="light"] .p8-history-actions button{background:#253248;color:#ff
 html[data-theme="light"] .p8-history-actions button:disabled{color:#d1d7df;}
 
 /* Stage 6 QA fix: session create form matches D07F rather than Safari defaults. */
-#p8-create-dialog{width:min(92vw,440px);max-width:calc(100vw - 24px);max-height:min(88dvh,760px);overflow:auto;overscroll-behavior:contain;box-sizing:border-box;margin:auto;padding:20px;border:1px solid #7bb99c;border-radius:18px;background:linear-gradient(160deg,#14513e,#062d23);color:#f5faf6;box-shadow:0 20px 50px #0009;}
+#p8-create-dialog{width:min(92vw,440px);max-width:calc(100vw - 24px);max-height:min(88dvh,760px);overflow:auto;overscroll-behavior:contain;margin:auto;padding:20px;border:1px solid #7bb99c;border-radius:18px;background:linear-gradient(160deg,#14513e,#062d23);color:#f5faf6;box-shadow:0 20px 50px #0009;}
 #p8-create-dialog::backdrop{background:#001d17b8;}
-#p8-create-dialog .p8-bonus-form{min-width:0;gap:12px;}
+#p8-create-dialog .p8-bonus-form{gap:12px;}
 #p8-create-dialog .p8-bonus-form label{display:grid;gap:5px;min-width:0;}
 #p8-create-dialog input{display:block;box-sizing:border-box;width:100%;min-width:0;min-height:44px;padding:10px 12px;font:inherit;color:#f5faf6;background:#06382b;border:1px solid #80b49c;border-radius:10px;}
 #p8-create-dialog input:focus{outline:2px solid #ffe3a1;outline-offset:1px;}
@@ -459,8 +459,8 @@ html[data-stage12-font="large"] .v122-confirm p{font-size:17px;}
 #panel-history .v123-correction-history .p8-correction-row[hidden]{display:none!important;}
 html[data-theme="light"] #panel-history .v123-correction-history .v123-correction-toggle{background:linear-gradient(140deg,#deefe4,#a9d3bc);border-color:#629b7d;color:#20573f;}
 /* Inactive restore control labels remain legible without suggesting they are enabled. */
-html[data-theme="dark"] #panel-settings button:disabled{color:#b2c6ba!important;opacity:.75;}
-html[data-theme="light"] #panel-settings button:disabled{color:#547668!important;opacity:.82;}
+html[data-theme="dark"] #panel-settings button:disabled{opacity:.75;}
+html[data-theme="light"] #panel-settings button:disabled{opacity:.82;}
 
 
 /* ===== SOURCE: v124-final-polish.css ===== */

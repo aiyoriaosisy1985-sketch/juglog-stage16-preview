@@ -11,9 +11,9 @@
 #tab-play#tab-play #playing#playing .action-board.sp .record-card::before,#tab-play#tab-play #playing#playing .action-board.sp .record-card::after{display:none!important;}
 #tab-play#tab-play #playing#playing .action-board.sp .record-card .record-minus{background:linear-gradient(155deg,#31423a,#0b1814)!important;border:1px solid #eaffee9c!important;box-shadow:inset 0 1px 1px #e8ffe977,0 2px 6px #000b!important;}
 #tab-play#tab-play #playing#playing .action-board.sp .record-card .record-footer{text-shadow:0 2px 3px #00170faa!important;}
-#tab-play .game-controls{}
-#tab-play .top-g-stats .kpi{}
-#tab-play .top-g-stats .kpi.hall-total{}
+
+
+
 }
 
 
@@ -51,148 +51,148 @@
 
 /* R2: screen-space architecture, not more sheen. Uses existing DOM and events. */
 @media (orientation:portrait) and (max-width:600px){
-  header{}
+  
   header .sub,header small{line-height:1.15!important;}
   main{padding:5px 10px calc(82px + env(safe-area-inset-bottom))!important;}
   #tab-play #playing>.panel{margin:5px 0 11px!important;}
-  #tab-play #playing>.panel>.row:first-child{}
-  #tab-play .top-g-stats{}
-  #tab-play .top-g-stats .kpi{}
-  #tab-play .top-g-stats strong{}
-  #tab-play .game-controls{}
+  
+  
+  
+  
+  
   #tab-play .game-controls .game-input-row{gap:6px!important;}
-  #tab-play .game-controls :is(input,button){}
+  
   #tab-play .game-controls .measure-check{font-size:11.5px!important;}
-  #tab-play .action-board.sp{}
-  #tab-play .action-board.sp :is(.action-left,.action-right){}
-  #tab-play .action-board.sp .record-card{}
-  #tab-play .action-board.sp .record-card .tap{}
+  
+  
+  
+  
   #tab-play .action-board.sp .record-card .record-symbol{max-height:71px!important;line-height:1!important;}
-  #tab-play .action-board.sp .record-card .record-symbol .fruit-icon{}
-  #tab-play .action-board.sp .record-card .record-footer{}
+  
+  
   #tab-play .action-board.sp .record-card .record-minus{width:44px!important;height:44px!important;}
-  #tab-play .four.sp{}
+  
   #tab-play .four.sp .kpi{min-width:0!important;}
   #tab-play .four.sp .uncompleted-kpi{min-width:0!important;}
-  #tab-play .four.sp .uncompleted-kpi .quick-complete{}
+  
   .tabs{padding-bottom:max(5px,env(safe-area-inset-bottom))!important;}
 }
 @media (orientation:portrait) and (max-width:375px){
   #tab-play .action-board.sp .record-card .tap{padding-right:48px!important;}
-  #tab-play .action-board.sp .record-card .record-symbol .fruit-icon{}
+  
   #tab-play .top-g-stats small{font-size:11px!important;}
 }
 
 /* R3: balanced surface architecture, no functional selectors modified */
 @media (orientation:portrait) and (max-width:600px){
-#tab-play #playing>.panel{}
+
 #tab-play .top-g-stats .kpi{display:flex!important;flex-direction:column!important;justify-content:center!important;}
-#tab-play .game-controls{}
-#tab-play .action-board.sp{}
+
+
 #tab-play .action-board.sp :is(.action-right,.action-left){gap:12px!important;}
 #tab-play .action-board.sp .record-card{border:1px solid color-mix(in srgb,var(--v5-edge) 66%,white)!important;background:radial-gradient(ellipse 126% 58% at 21% -22%,#fff9,transparent 73%),radial-gradient(ellipse 85% 80% at 76% 108%,#00172555,transparent 82%),linear-gradient(153deg,var(--v5-top),var(--v5-mid) 32%,var(--v5-base) 73%,var(--v5-dark))!important;box-shadow:inset 0 2px 1px #ffffffbd,inset 1px 0 1px #ffffff8a,inset 0 -3px 2px #001c2a77,0 4px 0 var(--v5-dark),0 7px 5px #0009,0 13px 20px #0007!important;}
-#tab-play .action-board.sp .record-card .tap{}
-#tab-play .action-board.sp .record-card:before{}
-#tab-play .action-board.sp .record-card .record-footer{}
-#tab-play .four.sp{}
-#tab-play .four.sp .kpi{}
+
+
+
+
+
 #tab-play .quick-complete{min-height:52px!important;}
 }
-@media (orientation:portrait) and (max-width:375px){#tab-play .action-board.sp{}#tab-play .action-board.sp :is(.action-right,.action-left){gap:10px!important;}#tab-play .action-board.sp .record-card{}#tab-play .action-board.sp .record-card .tap{}}
+@media (orientation:portrait) and (max-width:375px){#tab-play .action-board.sp :is(.action-right,.action-left){gap:10px!important;}}
 
 /* R4: product-level hierarchy and tactile surfaces; all event semantics untouched */
 @media (orientation:portrait) and (max-width:600px){
  header{padding:5px 11px!important;}
- main{}
+ 
  #tab-play #playing>.panel{border-radius:24px!important;}
- #tab-play #playing>.panel>.row:first-child{}
- #tab-play .top-g-stats{}
- #tab-play .top-g-stats .kpi{}
- #tab-play .game-controls{}
- #tab-play .game-controls .measure-check{}
- #tab-play .action-board.sp{}
- #tab-play .action-board.sp :is(.action-left,.action-right){}
- #tab-play .action-board.sp .record-card{}
- #tab-play .action-board.sp .record-card:before{}
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
  #tab-play .action-board.sp .record-card:after{inset:4px!important;border-radius:21px!important;}
- #tab-play .action-board.sp .record-card .tap{}
- #tab-play .action-board.sp .record-card .record-symbol{}
- #tab-play .action-board.sp .record-card .record-symbol .fruit-icon{}
- #tab-play .action-board.sp .record-card .record-minus{}
- #tab-play .action-board.sp .record-card .record-footer{}
- #tab-play .four.sp{}
- #tab-play .four.sp .kpi{}
- #tab-play .four.sp .uncompleted-kpi .quick-complete{}
- .tabs{}
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
  .tabs button.active{border:1px solid #c5a75a!important;}
 }
 @media (orientation:portrait) and (max-width:375px){
- #tab-play .action-board.sp .record-card{}
- #tab-play .action-board.sp .record-card .tap{}
- #tab-play .action-board.sp .record-card .record-symbol .fruit-icon{}
+ 
+ 
+ 
 }
 
 /* R5: protect action visibility while retaining touch sizes; portrait only */
 @media (orientation:portrait) and (max-width:600px){
- #tab-play #playing>.panel{}
- #tab-play #playing>.panel>.row:first-child{}
- #tab-play .top-g-stats{}
- #tab-play .top-g-stats .kpi{}
+ 
+ 
+ 
+ 
  #tab-play .top-g-stats strong{font-size:clamp(20px,5.5vw,24px)!important;line-height:1.15!important;}
- #tab-play .game-controls{}
+ 
  #tab-play .game-controls :is(input,button){min-height:43px!important;}
- #tab-play .game-controls .measure-check{}
- #tab-play .action-board.sp{}
- #tab-play .action-board.sp :is(.action-left,.action-right){}
- #tab-play .action-board.sp .record-card{}
+ 
+ 
+ 
+ 
  #tab-play .action-board.sp .record-card .tap{padding-bottom:28px!important;}
- #tab-play .action-board.sp .record-card .record-symbol .fruit-icon{}
- #tab-play .four.sp{}
- #tab-play .four.sp .kpi{}
- #tab-play .four.sp .uncompleted-kpi .quick-complete{}
+ 
+ 
+ 
+ 
 }
 @media (orientation:portrait) and (max-width:375px){
- #tab-play .action-board.sp .record-card{}
- #tab-play .action-board.sp .record-card .tap{}
- #tab-play .action-board.sp .record-card .record-symbol .fruit-icon{}
+ 
+ 
+ 
 }
 
 /* 360px: reclaim vertical space without shrinking 44px cancel/completion targets */
 @media (orientation:portrait) and (max-width:375px){
- #tab-play #playing>.panel{}
+ 
  #tab-play .top-g-stats .kpi{padding:3px 2px!important;}
- #tab-play .top-g-stats{}
- #tab-play .game-controls{}
+ 
+ 
  #tab-play .game-controls .measure-check{margin-top:1px!important;}
- #tab-play .action-board.sp{}
- #tab-play .action-board.sp :is(.action-left,.action-right){}
- #tab-play .action-board.sp .record-card{}
- #tab-play .action-board.sp .record-card .tap{}
- #tab-play .four.sp{}
+ 
+ 
+ 
+ 
+ 
 }
 
 /* R6: small-phone layout calibration: keep every critical action >=44px */
 @media (orientation:portrait) and (max-width:375px){
  header{padding-top:2px!important;padding-bottom:2px!important;}
  #tab-play #playing>.panel>.row:first-child{padding-bottom:2px!important;}
- #tab-play .top-g-stats .kpi{}
- #tab-play .game-controls{}
+ 
+ 
  #tab-play .game-controls .measure-check{font-size:11.5px!important;line-height:1.14!important;}
  #tab-play .action-board.sp .record-card{border-radius:22px!important;}
- #tab-play .action-board.sp .record-card .tap{}
+ 
  #tab-play .action-board.sp .record-card .record-symbol .fruit-icon{height:48px!important;max-height:48px!important;}
  #tab-play .action-board.sp .record-card .record-footer{bottom:6px!important;}
- #tab-play .four.sp{}
- #tab-play .four.sp .kpi{}
+ 
+ 
  #tab-play .four.sp .uncompleted-kpi .quick-complete{min-height:46px!important;}
 }
 
 @media (orientation:portrait) and (max-width:375px){
- #tab-play .top-g-stats .kpi{}
- #tab-play .game-controls{}
- #tab-play .top-g-stats{}
- #tab-play .action-board.sp .record-card{}
- #tab-play .action-board.sp .record-card .tap{}
+ 
+ 
+ 
+ 
+ 
  #tab-play .action-board.sp .record-card .record-minus{min-width:44px!important;min-height:44px!important;}
 }
 
@@ -206,20 +206,20 @@
  #tab-play .top-g-stats .kpi{padding:4px 3px!important;gap:1px!important;min-height:58px!important;}
  #tab-play .game-controls{padding:5px 7px!important;}
  #tab-play .game-controls .game-input-row{margin-top:3px!important;}
- #tab-play .game-controls .measure-check{}
+ 
  #tab-play .action-board.sp{gap:7px!important;}
- #tab-play .action-board.sp :is(.action-left,.action-right){}
+ 
  #tab-play .four.sp{margin:3px 0!important;gap:6px!important;}
  #tab-play .four.sp .kpi{padding:5px 3px!important;}
- #tab-play .four.sp .uncompleted-kpi .quick-complete{}
- #tab-play .action-board.sp .record-card .record-minus{}
+ 
+ 
 }
 @media (orientation:portrait) and (max-width:375px){
- #tab-play .top-g-stats .kpi{}
- #tab-play .top-g-stats{}
+ 
+ 
  #tab-play .game-controls{padding:4px 6px!important;}
  #tab-play .action-board.sp{gap:5px!important;margin:2px 0!important;}
- #tab-play .action-board.sp :is(.action-left,.action-right){}
+ 
  #tab-play .four.sp{margin:-6px 0 1px!important;}
  #tab-play .four.sp .kpi{padding:3px 3px!important;}
 }
@@ -235,13 +235,8 @@
   
   border-color:#68ad8b!important;
   }
- #tab-play .top-g-stats .kpi.hall-total{
-  
-  }
- #tab-play .game-controls{
-  
-  
-  }
+ 
+ 
  #tab-play .game-controls input{
   background:linear-gradient(175deg,#0a2a21,#103d2f)!important;
   border:1px solid #47856b!important;
@@ -253,18 +248,14 @@
  #tab-play .action-board.sp .record-card:after{
   border-color:#ffffff93!important;
   background:radial-gradient(ellipse 52% 13% at 16% 99%,#fff7,transparent 98%),radial-gradient(ellipse 48% 10% at 90% 98%,#fff6,transparent 99%)!important;}
- #tab-play .action-board.sp .record-card .record-minus{
-  
-  }
- #tab-play .four.sp .kpi{
-  
-  }
+ 
+ 
  #tab-play .quick-complete{
   
   border-color:#ffecc0!important;
   }
  .tabs{border-top-color:#75b295!important;}
- .tabs button.active{}
+ 
 }
 @media (orientation:portrait) and (max-width:375px){
  #tab-play #playing .action-board.sp{margin-bottom:0px!important;}
@@ -274,36 +265,36 @@
 /* R10 — PRODUCT COMPONENT REBUILD: real clickable surface, compact portrait proportions */
 @media (orientation:portrait) and (max-width:600px){
 #tab-play #playing>.panel { border:1px solid #4c9f7c!important;box-shadow:inset 0 1px 0 #caffdb77,0 10px 25px #0008!important;}
-#tab-play .top-g-stats{}
-#tab-play .top-g-stats .kpi{ }
-#tab-play .top-g-stats .kpi.hall-total{}
+
+
+
 #tab-play .game-controls{border:1px solid #599d7e!important;}
 #tab-play .game-controls input{border-radius:12px!important;box-shadow:inset 0 2px 5px #00150fc7,inset 0 1px 0 #b6e7cd3d!important;}
 #tab-play .action-board.sp{column-gap:13px!important;}
-#tab-play .action-board.sp :is(.action-left,.action-right){}
+
 #tab-play .action-board.sp .record-card{isolation:isolate!important;overflow:hidden!important;height:116px!important;min-height:116px!important;}
 #tab-play .action-board.sp .record-card::before{top:4px!important;left:5px!important;right:5px!important;}
-#tab-play .action-board.sp .record-card::after{}
+
 #tab-play .action-board.sp .record-card .tap{height:111px!important;min-height:111px!important;padding:10px 48px 31px 8px!important;display:flex!important;justify-content:center!important;align-items:center!important;}
-#tab-play .action-board.sp .record-card .record-symbol{}
+
 #tab-play .action-board.sp .record-card .record-symbol .fruit-icon{height:62px!important;max-height:62px!important;}
 #tab-play .action-board.sp .record-card .record-footer{font-size:clamp(15px,4.4vw,19px)!important;}
 #tab-play .action-board.sp .record-card .record-minus{top:8px!important;right:8px!important;}
-#tab-play .four.sp .kpi{}
+
 #tab-play .quick-complete{background:radial-gradient(ellipse 120% 70% at 24% -25%,#fffbe8d9,transparent 77%),linear-gradient(158deg,#ffeab4,#f0c780 62%,#cb9e53)!important;border:1px solid #ffe9b6!important;box-shadow:inset 0 2px 1px #fffde8,inset 0 -2px 2px #7d521b73,0 3px 0 #9e7236,0 6px 11px #0006!important;}
-.tabs{}
+
 .tabs button.active{border-color:#e0c46c!important;}
 }
-@media (orientation:portrait) and (max-width:375px){#tab-play .action-board.sp{column-gap:9px!important;}#tab-play .action-board.sp .record-card{}#tab-play .action-board.sp .record-card .tap{}#tab-play .game-controls{}}
+@media (orientation:portrait) and (max-width:375px){#tab-play .action-board.sp{column-gap:9px!important;}}
 /* R10 safety fit: compress decorative margins, preserve touch targets. */
 @media (orientation:portrait) and (max-width:375px){
  #tab-play .four.sp{margin-bottom:0!important;}
- #tab-play .action-board.sp{}
+ 
 }
 @media (orientation:portrait) and (max-width:375px){
- #tab-play #playing .top-g-stats{}
+ 
  #tab-play #playing .game-controls{margin-top:3px!important;}
- #tab-play #playing .action-board.sp{}
+ 
  #tab-play #playing .four.sp{margin-top:4px!important;}
 }
 @media (orientation:portrait) and (max-width:375px){
@@ -318,16 +309,16 @@
  header{padding-top:1px!important;padding-bottom:1px!important;}
  #tab-play #playing>.panel{padding:6px!important;}
  #tab-play #playing>.panel>.row:first-child{padding-bottom:0!important;margin-bottom:0!important;}
- #tab-play .top-g-stats{}
+ 
  #tab-play .top-g-stats .kpi{padding-top:3px!important;padding-bottom:3px!important;}
  #tab-play .game-controls{padding-top:4px!important;padding-bottom:4px!important;}
  #tab-play .game-controls .measure-check{line-height:1.08!important;margin-top:1px!important;}
  #tab-play .action-board.sp{row-gap:7px!important;}
  #tab-play .action-board.sp :is(.action-left,.action-right){gap:7px!important;}
- #tab-play .four.sp{}
+ 
  #tab-play .four.sp .kpi{padding-top:2px!important;padding-bottom:2px!important;}
  #tab-play .four.sp .uncompleted-kpi .quick-complete{min-height:48px!important;}
- #tab-play .action-board.sp .record-card .record-minus{}
+ 
 }
 @media (orientation:portrait) and (max-width:375px){
  #tab-play .top-g-stats .kpi{min-height:48px!important;}
@@ -339,7 +330,7 @@
 /* R11 final measured spacing: compact inner button-row gutters, not touch boxes. */
 @media (orientation:portrait) and (max-width:375px){
  #tab-play .action-board.sp :is(.action-left,.action-right){gap:4px!important;}
- #tab-play .four.sp{}
+ 
 }
 
 /* R12 — cohesive geometry system, not extra sparkle.  Visuals-only layer. */
@@ -354,60 +345,30 @@
    
    text-shadow:0 2px 4px #001e19!important;
  }
- #tab-play .top-g-stats .kpi{
-    
-   
-   
- }
- #tab-play .top-g-stats .kpi.hall-total{
-   
-   
- }
- #tab-play .game-controls{
-   
-   
-   
- }
+ 
+ 
+ 
  #tab-play .game-input-row :is(button,input){border-radius:11px!important;}
  #tab-play .action-board.sp .record-card{
    
    box-shadow:inset 0 1px 1px #ffffff70,inset 0 -2px 1px #0005,0 5px 0 var(--v5-dark),0 9px 13px #0009!important;
  }
- #tab-play .action-board.sp .record-card::before{
-   
-   
-   
- }
- #tab-play .action-board.sp .record-card::after{
-   
-   
- }
+ 
+ 
  #tab-play .action-board.sp .record-card .record-footer{
-   letter-spacing:.005em!important;font-variant-numeric:tabular-nums;
+   letter-spacing:.005em!important;
    
  }
- #tab-play .action-board.sp .record-card .record-minus{
-   
-   
-   
-   
- }
+ 
  #tab-play .four.sp .kpi{
    
    border-color:#47745f!important;
    
  }
- #tab-play .four.sp .quick-complete{
-   
-   
-   
-   
- }
+ 
  .tabs{
    border-color:#3f775f!important;}
- .tabs button.active{
-   
-   }
+ 
 }
 
 /* R13 structural design: unified operations deck, hall odds after primary actions */
@@ -418,9 +379,9 @@
 #tab-play .play-command-deck>.action-board.sp{margin-bottom:7px!important;}
 #tab-play .play-command-deck>.four.sp{margin:0 0 2px!important;gap:7px!important;}
 #tab-play .hall-prob{margin:7px 0!important;border-radius:16px!important;}
-#tab-play .top-g-stats{}
-#tab-play .action-board.sp .record-card{}
-#tab-play .action-board.sp .record-card .record-symbol{}
+
+
+
 #tab-play .action-board.sp .record-card:before{opacity:.53!important;height:41%!important;}
 }
 @media (orientation:portrait) and (max-width:375px){
