@@ -420,23 +420,23 @@ html[data-theme="light"] #panel-play .v122-reconcile-row button{color:#194b38!im
 #panel-play .v122-reconcile-row button:disabled{opacity:.64;filter:saturate(.58);cursor:not-allowed;box-shadow:inset 0 1px 2px #fff4,0 2px 3px #0003;}
 /* The history correction ledger is collapsed by default; no loss of audit/event data. */
 #panel-history details.v122-folded-corrections{padding:8px 12px;}
-#panel-history details.v122-folded-corrections>summary{cursor:pointer;list-style:none;min-height:46px;display:flex;align-items:center;padding:9px 12px;border-radius:9px;border:1px solid var(--v122-border);color:#efdcac;font-weight:750;}
+#panel-history details.v122-folded-corrections>summary{cursor:pointer;list-style:none;min-height:46px;display:flex;align-items:center;padding:9px 12px;border-radius:9px;border:1px solid var(--v122-border);color:#f5faf6;font-weight:750;}
 #panel-history details.v122-folded-corrections>summary::after{content:" ▾";margin-left:auto;}
 #panel-history details.v122-folded-corrections[open]>summary::after{content:" ▴";}
 html[data-theme="light"] #panel-history details.v122-folded-corrections>summary{background:#d7eadd;color:#19513c;}
-#panel-history .p8-event-toggle{color:#f0d99e;background:linear-gradient(145deg,#184838,#0c3228);border:1px solid var(--v122-border);font-weight:750;}
+#panel-history .p8-event-toggle{color:#f5faf6;background:linear-gradient(145deg,#184838,#0c3228);border:1px solid var(--v122-border);font-weight:750;}
 html[data-theme="light"] #panel-history .p8-event-toggle{color:#225d45!important;background:linear-gradient(145deg,#d9f0e2,#aed5c1)!important;border:1px solid #6a9f86;}
 html[data-theme="light"] #panel-history .p8-correction-row button{color:#154b39!important;background:#d1e8dc;border:1px solid #5f9880;}
 /* Theme-dependent checkboxes: maintain native hitboxes and checkbox checked state. */
 /* Correction buttons preserve fruit-key hues. */
-html[data-theme="dark"] .button-grid .fruit-minus{color:#f7e5b3;border-color:#c8aa70;background:linear-gradient(140deg,#255542,#09281f);}
+html[data-theme="dark"] .button-grid .fruit-minus{color:#f5faf6;border-color:#c8aa70;background:linear-gradient(140deg,#255542,#09281f);}
 html[data-theme="light"] .button-grid .fruit-minus{color:#184e3a;border-color:#4f947a;background:linear-gradient(145deg,#effaf1,#aad8c2);}
 /* Avoid theme-specific white native confirm; app-owned dialog uses nonblocking promise. */
 .v122-confirm{width:min(90vw,410px);max-height:80dvh;overflow:auto;margin:auto;border:1px solid #d5b875;border-radius:17px;background:#073d30;color:#f3f6ef;padding:20px;box-shadow:0 17px 45px #0008;}
 .v122-confirm::backdrop{background:#001b14b8;}
 .v122-confirm p{white-space:pre-line;font-size:16px;font-weight:700;line-height:1.6;margin:0 0 18px;}
 .v122-confirm-actions{display:flex;justify-content:flex-end;gap:10px;}
-.v122-confirm-actions button{min-height:46px;min-width:100px;border-radius:11px;border:1px solid #d6b876;font-size:15px;font-weight:750;background:#144e3a;color:#f0ddb0;}
+.v122-confirm-actions button{min-height:46px;min-width:100px;border-radius:11px;border:1px solid #d6b876;font-size:15px;font-weight:750;background:#144e3a;color:#f5faf6;}
 .v122-confirm-actions button:last-child{background:linear-gradient(155deg,#f9e7aa,#d3aa53);color:#133a2d;}
 html[data-theme="light"] .v122-confirm{background:#f0f8f1;color:#143f2e;border-color:#568e71;}
 html[data-theme="light"] .v122-confirm-actions button{background:#d9eee1;color:#20573f;border-color:#62967c;}
@@ -454,7 +454,7 @@ html[data-stage12-font="large"] .v122-confirm p{font-size:17px;}
 /* ===== SOURCE: v123-refinements.css ===== */
 /* Ver.12.3: correction actions visible for latest three; safely expand in place. */
 #panel-history .v123-correction-history{padding:10px 12px;border-radius:12px;}
-#panel-history .v123-correction-history .v123-correction-toggle{display:block;width:100%;min-height:46px;padding:10px 12px;margin:0 0 12px;border:1px solid #c5a86e;border-radius:10px;background:linear-gradient(145deg,#174a3a,#0d3028);color:#f2dca8;text-align:center;font-weight:750;cursor:pointer;}
+#panel-history .v123-correction-history .v123-correction-toggle{display:block;width:100%;min-height:46px;padding:10px 12px;margin:0 0 12px;border:1px solid #c5a86e;border-radius:10px;background:linear-gradient(145deg,#174a3a,#0d3028);color:#f5faf6;text-align:center;font-weight:750;cursor:pointer;}
 #panel-history .v123-correction-history .v123-correction-toggle[hidden]{display:none;}
 #panel-history .v123-correction-history .p8-correction-row[hidden]{display:none!important;}
 html[data-theme="light"] #panel-history .v123-correction-history .v123-correction-toggle{background:linear-gradient(140deg,#deefe4,#a9d3bc);border-color:#629b7d;color:#20573f;}
@@ -580,7 +580,7 @@ html[data-theme="dark"] #panel-history .p8-correction-row button:disabled {
 #panel-play #p8-stage14-minus10{border:1px solid #d5b09b!important;background:radial-gradient(ellipse at 25% 3%,#ffe5cc73,transparent 54%),linear-gradient(155deg,#9e8077 0%,#6d4c49 54%,#3d292d 100%)!important;color:#f5faf6!important;box-shadow:inset 0 1px 1px #fff7,inset 0 -2px 2px #1e0c0b9c,0 3px 0 #29191b,0 5px 7px #0008;text-shadow:0 1px 2px #1e0c0b;}
 html[data-theme="light"] #panel-play #p8-stage14-minus10{border-color:#a88c83!important;background:linear-gradient(155deg,#b99a90,#805d59 54%,#594047)!important;color:#fff8e9!important;}
 #panel-play #p8-stage14-minus10:focus-visible{outline:3px solid #ffe5ac;outline-offset:2px;}
-#panel-history .stage14-history-sessions-toggle{width:100%;min-height:44px;margin:-5px 0 16px;padding:10px 12px;border-radius:11px;border:1px solid #c6a96b;background:linear-gradient(150deg,#235c47,#123d32);color:#f8ebc7;font-weight:700;font-size:14px;cursor:pointer;}
+#panel-history .stage14-history-sessions-toggle{width:100%;min-height:44px;margin:-5px 0 16px;padding:10px 12px;border-radius:11px;border:1px solid #c6a96b;background:linear-gradient(150deg,#235c47,#123d32);color:#f5faf6;font-weight:700;font-size:14px;cursor:pointer;}
 html[data-theme="light"] #panel-history .stage14-history-sessions-toggle{background:linear-gradient(145deg,#dcece1,#a6ccb5);color:#20543a;border-color:#669e7d;}
 #panel-history .stage14-history-sessions-toggle[hidden],#panel-history .p8-history-session[hidden]{display:none!important;}
 
