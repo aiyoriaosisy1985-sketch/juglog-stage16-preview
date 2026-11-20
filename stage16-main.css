@@ -148,6 +148,20 @@ html[data-theme=light] #p8-create-dialog input{background:#fff;color:#173b31;bor
 #panel-play .entrycontrols{gap:7px;}
 #panel-play .entrycontrols :is(input,button){min-height:var(--p8-tap-target);}
 #panel-play .button-grid{gap:10px;}
+/* Stage18 A CSS-only feasibility proof. Existing DOM and event handlers remain intact. */
+@media (orientation:landscape) and (min-width:640px){
+  #panel-play{display:grid;grid-template-columns:minmax(132px,1fr) minmax(220px,1.45fr) minmax(132px,1fr);column-gap:10px;align-content:start}
+  #panel-play>.heading{grid-column:1/-1;grid-row:1}
+  #panel-play>.statline{grid-column:2;grid-row:2}
+  #panel-play>.entry{grid-column:2;grid-row:3}
+  #panel-play>.button-grid{display:contents}
+  #panel-play>.button-grid>.keywrap:nth-child(1){grid-column:1;grid-row:2}
+  #panel-play>.button-grid>.keywrap:nth-child(2){grid-column:1;grid-row:3}
+  #panel-play>.button-grid>.keywrap:nth-child(3){grid-column:3;grid-row:2}
+  #panel-play>.button-grid>.keywrap:nth-child(4){grid-column:3;grid-row:3}
+  #panel-play>:not(.heading):not(.statline):not(.entry):not(.button-grid){grid-column:1/-1}
+}
+
 #panel-play .keywrap{min-width:0;}
 #panel-play .key{position:relative;min-width:0;width:100%;touch-action:manipulation;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:5px;overflow:hidden;}
 #panel-play .key .symbol,#panel-play .key .count{position:relative;min-width:0;max-width:100%;line-height:1.12;text-align:center;overflow-wrap:anywhere;}
