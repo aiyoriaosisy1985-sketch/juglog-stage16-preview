@@ -1837,7 +1837,35 @@ module.exports={inspectInput,classifyBatchSnapshot,classifyBatchIndexedDB,batchP
 return module.exports;})();
 return modules.batch;})();</script>
 <script src="./interval-analysis.js"></script><script src="./emergency-recovery.js"></script><script src="./safety-test.js"></script><script src="./guess-engine.js"></script><script src="./graph-engine.js"></script><script src="./finance-engine.js"></script><script src="./card-engine.js"></script><script src="./audit-engine.js"></script><script src="./preseat-engine.js"></script><script>
-(()=>{'use strict';const themeSaved=(()=>{try{return localStorage.getItem('juglog_stage17_perf_test_20261124_theme')||'auto'}catch{return 'auto'}})();document.documentElement.dataset.theme=['auto','light','dark'].includes(themeSaved)?themeSaved:'auto';const $=id=>document.getElementById(id),UID=()=>crypto.randomUUID(), DB='juglog_stage17_perf_test_20261124_db',clientId=UID();let leaseReason='入力権限を確認しています',leaseWaitSeconds=null;let db=null,active=(()=>{try{return localStorage.getItem('juglog_stage17_perf_test_20261124_active_session')||null}catch{return null}})(),writer=false,epoch=null,leaseChecking=false,leaseTask=null,busy=false,pending=[],view=[],project=null,historyExpanded=false,currentTab='play',validatedImport=null,guessScope='personal';
+(()=>{'use strict';
+// Stage17 Candidate6: diagnostic-only startup timing. No IndexedDB writes or validation bypass.
+const stage17StartupEntries=[];
+const stage17StartupStart=performance.now();
+let stage17StartupInProgress=true,stage17StartupEventCount=null,stage17StartupOperableAt=null;
+function stage17Metric(label,started){stage17StartupEntries.push({label,ms:Math.round((performance.now()-started)*10)/10});}
+function stage17StartupReport(){
+ const lines=['Juglog Stage17 Candidate6｜起動計測',
+  'ページ開始→JS起動: '+Math.round(stage17StartupStart)+' ms',
+  'JS起動→初回入力準備: '+(stage17StartupOperableAt===null?'未完了':Math.round(stage17StartupOperableAt-stage17StartupStart)+' ms'),
+  'ページ開始→初回入力準備: '+(stage17StartupOperableAt===null?'未完了':Math.round(stage17StartupOperableAt)+' ms'),
+  '初期イベント数: '+(stage17StartupEventCount??'未取得'),
+  '診断時の入力状態: '+(writer&&!busy&&!pending.length&&project?.get(active)?.status==='ACTIVE'?'入力可能':'入力不可または実戦未選択')];
+ for(const entry of stage17StartupEntries)lines.push(entry.label+': '+entry.ms+' ms');
+ return lines.join('\n');
+}
+function stage17InstallStartupView(){
+ if(document.getElementById('stage17StartupTool'))return;
+ const node=document.createElement('div');node.id='stage17StartupTool';
+ node.style.cssText='position:fixed;bottom:calc(63px + env(safe-area-inset-bottom));left:8px;z-index:2500;font:13px -apple-system,BlinkMacSystemFont,sans-serif;max-width:calc(100vw - 16px)';
+ const toggle=document.createElement('button');toggle.type='button';toggle.textContent='起動計測';toggle.style.cssText='border-radius:10px;padding:7px 10px;background:#183c30;color:white;border:1px solid #87b59b;min-height:38px';
+ const panel=document.createElement('div');panel.hidden=true;panel.style.cssText='background:#14271f;color:white;padding:10px;border:1px solid #87b59b;border-radius:10px;box-shadow:0 5px 20px #0008;max-height:52vh;overflow:auto;width:min(355px,calc(100vw - 16px));margin-bottom:5px';
+ const result=document.createElement('pre');result.style.cssText='white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px;line-height:1.5;margin:0 0 8px';
+ const copy=document.createElement('button');copy.type='button';copy.textContent='結果をコピー';copy.style.cssText='padding:8px 10px;border-radius:7px';
+ copy.onclick=async()=>{try{await navigator.clipboard.writeText(stage17StartupReport());copy.textContent='コピーしました';}catch(_){copy.textContent='コピー不可（結果を長押ししてください）';}};
+ toggle.onclick=()=>{panel.hidden=!panel.hidden;if(!panel.hidden)result.textContent=stage17StartupReport();};
+ panel.append(result,copy);node.append(panel,toggle);document.body.append(node);
+}
+const themeSaved=(()=>{try{return localStorage.getItem('juglog_stage17_perf_test_20261124_theme')||'auto'}catch{return 'auto'}})();document.documentElement.dataset.theme=['auto','light','dark'].includes(themeSaved)?themeSaved:'auto';const $=id=>document.getElementById(id),UID=()=>crypto.randomUUID(), DB='juglog_stage17_perf_test_20261124_db',clientId=UID();let leaseReason='入力権限を確認しています',leaseWaitSeconds=null;let db=null,active=(()=>{try{return localStorage.getItem('juglog_stage17_perf_test_20261124_active_session')||null}catch{return null}})(),writer=false,epoch=null,leaseChecking=false,leaseTask=null,busy=false,pending=[],view=[],project=null,historyExpanded=false,currentTab='play',validatedImport=null,guessScope='personal';
 function txPromise(t){return new Promise((res,rej)=>{t.oncomplete=()=>res();t.onerror=()=>rej(t.error);t.onabort=()=>rej(t.error||new Error('transaction aborted'))})}function req(r){return new Promise((res,rej)=>{r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}function openDb(){return new Promise((res,rej)=>{const r=indexedDB.open(DB,2);r.onupgradeneeded=()=>{const d=r.result;if(!d.objectStoreNames.contains('events')){const es=d.createObjectStore('events',{keyPath:'eventId'});es.createIndex('commitSequence','commitSequence',{unique:true});es.createIndex('operationId','operationId',{unique:false});}else{const es=r.transaction.objectStore('events');if(!es.indexNames.contains('operationId'))es.createIndex('operationId','operationId',{unique:false})}if(!d.objectStoreNames.contains('metadata'))d.createObjectStore('metadata',{keyPath:'key'});};r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}const getMeta=async key=>{const t=db.transaction('metadata','readonly');return(await req(t.objectStore('metadata').get(key)))?.value};async function putMeta(key,value){const t=db.transaction('metadata','readwrite');t.objectStore('metadata').put({key,value});await txPromise(t)}async function allEvents(){const t=db.transaction('events','readonly');const a=await req(t.objectStore('events').getAll());return a.sort((x,y)=>x.commitSequence-y.commitSequence)}
 async function claim(force=false){const t=db.transaction('metadata','readwrite'),s=t.objectStore('metadata'),prev=(await req(s.get('lease')))?.value,now=Date.now(),alive=prev&&prev.expiresAt>now&&prev.ownerId!==clientId;if(alive&&!force){await txPromise(t);writer=false;epoch=null;leaseReason='別画面に入力権限があります';leaseWaitSeconds=Math.max(1,Math.ceil((prev.expiresAt-now)/1000));return false}if(alive&&force){t.abort();throw Error('別画面の入力権限が有効です')}epoch=prev?.ownerId===clientId?prev.epoch:(prev?.epoch||0)+1;s.put({key:'lease',value:{ownerId:clientId,epoch,expiresAt:now+12000,updatedAt:now}});await txPromise(t);writer=true;leaseReason='';leaseWaitSeconds=null;return true}
 async function heartbeat(){if(!db||!writer||document.hidden)return;try{const t=db.transaction('metadata','readwrite'),s=t.objectStore('metadata'),p=(await req(s.get('lease')))?.value,now=Date.now();if(!p||p.ownerId!==clientId||p.epoch!==epoch||p.expiresAt<=now){t.abort();writer=false;epoch=null;leaseReason=!p?'入力権限記録が見つかりません':p.ownerId!==clientId?'別画面に入力権限が移りました':p.epoch!==epoch?'入力権限の世代が変わりました':'入力権限の期限が切れました';leaseWaitSeconds=p?.expiresAt>now?Math.ceil((p.expiresAt-now)/1000):null;render();return}p.expiresAt=now+12000;p.updatedAt=now;s.put({key:'lease',value:p});await txPromise(t)}catch{writer=false;epoch=null;leaseReason='入力権限の更新に失敗しました。保存状態を確認してください';leaseWaitSeconds=null;render()}}
@@ -2229,7 +2257,21 @@ async function saveCheckpoint(){
  }finally{busy=false;render()}
 }
 $('checkpointAddBtn').onclick=saveCheckpoint;
-async function refresh(){view=await allEvents();project=replay(view);if(!active||!project.has(active))active=[...project.keys()].at(-1)||null;await loadCheckpoints();restoreV45Ui();render()}
+async function refresh(){
+ const stage17StartupMeasure=stage17StartupInProgress;
+ let t=performance.now();
+ view=await allEvents();
+ if(stage17StartupMeasure)stage17Metric('全イベント読込',t);
+ t=performance.now();project=replay(view);
+ if(stage17StartupMeasure){stage17Metric('履歴再計算',t);stage17StartupEventCount=view.length;}
+ if(!active||!project.has(active))active=[...project.keys()].at(-1)||null;
+ t=performance.now();await loadCheckpoints();
+ if(stage17StartupMeasure)stage17Metric('チェックポイント確認',t);
+ t=performance.now();restoreV45Ui();
+ if(stage17StartupMeasure)stage17Metric('UI設定復元',t);
+ t=performance.now();render();
+ if(stage17StartupMeasure)stage17Metric('初回render',t);
+}
 /* v45 UI-only preferences. Never write preference changes into IndexedDB event records. */
 const v45UiKey='juglog_stage17_perf_test_20261124_ui_preferences';
 let v45Ui={};try{const saved=JSON.parse(localStorage.getItem(v45UiKey)||'{}');if(saved&&typeof saved==='object'&&!Array.isArray(saved))v45Ui=saved}catch{}
@@ -3595,5 +3637,13 @@ $('pendingBatchAuditBtn').addEventListener('click',async()=>{
 });
 
 $('takeoverBtn').onclick=async()=>{const lease=await getMeta('lease');if(lease&&lease.expiresAt>Date.now()&&lease.ownerId!==clientId){alert('ほかの画面が入力権限を保持しています。自動取得しません。');return}if(confirm('入力権限を取得しますか？ 以前の画面に未保存入力がある場合、手動で差分確認が必要です。')){if(busy||pending.length){alert('処理中または未保存の操作があります。解決するまで権限を切り替えません。');return}busy=true;render();try{await claim(true);await refresh()}catch(err){writer=false;epoch=null;leaseReason='手動の入力権限取得または記録再読込に失敗しました';alert('入力権限を安全に取得できませんでした：'+err.message)}finally{busy=false;render()}}};
-(async()=>{try{db=await openDb();if(!document.hidden)await claim(false);await refresh();if(readCheckpointPending()){$('checkpointStatus').textContent='前回のチェックポイント保存結果が未確定です。新規追加せず照合してください。';}await renderBackupOverview();setInterval(()=>{if(!document.hidden)ensureLease()},3000);document.addEventListener('visibilitychange',async()=>{if(!document.hidden){await ensureLease();await refresh()}});window.addEventListener('pageshow',()=>{ensureLease()});window.addEventListener('focus',()=>{ensureLease()});window.addEventListener('pagehide',()=>{releaseLease()});/* QA isolation: service worker registration intentionally disabled */}catch(err){writer=false;epoch=null;leaseReason='初期化または記録読込に失敗しました。入力を停止しています';showAlert('初期化に失敗しました。入力を停止しました：'+err.message,'danger');try{render()}catch(_){}}})();})();
+(async()=>{try{
+ let t=performance.now();db=await openDb();stage17Metric('データベース接続',t);
+ t=performance.now();if(!document.hidden)await claim(false);stage17Metric('入力権限確認',t);
+ t=performance.now();await refresh();stage17Metric('初回refresh合計',t);
+ stage17StartupOperableAt=performance.now();stage17StartupInProgress=false;
+ if(readCheckpointPending()){$('checkpointStatus').textContent='前回のチェックポイント保存結果が未確定です。新規追加せず照合してください。';}
+ t=performance.now();await renderBackupOverview();stage17Metric('バックアップ概要取得',t);
+ stage17InstallStartupView();
+ setInterval(()=>{if(!document.hidden)ensureLease()},3000);document.addEventListener('visibilitychange',async()=>{if(!document.hidden){await ensureLease();await refresh()}});window.addEventListener('pageshow',()=>{ensureLease()});window.addEventListener('focus',()=>{ensureLease()});window.addEventListener('pagehide',()=>{releaseLease()});/* QA isolation: service worker registration intentionally disabled */}catch(err){stage17StartupInProgress=false;stage17Metric('初期化中断',stage17StartupStart);stage17InstallStartupView();writer=false;epoch=null;leaseReason='初期化または記録読込に失敗しました。入力を停止しています';showAlert('初期化に失敗しました。入力を停止しました：'+err.message,'danger');try{render()}catch(_){}}})();})();
 </script><script defer src="./p8-control-bridge.js"></script></body></html>
