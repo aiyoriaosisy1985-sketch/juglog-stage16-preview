@@ -1652,6 +1652,38 @@ header .development-version{opacity:.7!important;font-size:10px!important;line-h
     body:has(input:focus, textarea:focus, select:focus) .tabs { visibility:hidden!important; pointer-events:none!important; }
   }
 }
+
+/* Stage17 Candidate3: emergency export overlay must not shift the play screen. */
+#emergencyExportPanel:not([hidden]){
+ position:fixed;top:calc(env(safe-area-inset-top) + 64px);
+ left:10px;right:10px;max-width:520px;margin:0 auto;
+ z-index:1100;padding:12px;border:2px solid #cc7979;border-radius:12px;
+ background:var(--surface,#173a2e);box-shadow:0 12px 35px #0008;
+}
+
+/* Stage17 Candidate4: transient critical alerts are viewport overlays, never layout children.
+   Errors remain visible and actionable; the emergency panel stays accessible. */
+body>header #alerts:not(:empty){
+ position:fixed!important;
+ top:calc(env(safe-area-inset-top) + 78px)!important;
+ left:12px!important;right:12px!important;
+ width:auto!important;max-width:560px!important;
+ margin:0 auto!important;
+ max-height:35vh;overflow-y:auto;
+ z-index:1201!important;
+ filter:drop-shadow(0 8px 18px #0008);
+}
+body>header #alerts:empty{display:none!important;}
+body>header #emergencyExportPanel:not([hidden]){
+ position:fixed!important;
+ top:auto!important;
+ bottom:calc(env(safe-area-inset-bottom) + 64px)!important;
+ left:12px!important;right:12px!important;
+ width:auto!important;max-width:560px!important;
+ margin:0 auto!important;
+ max-height:40vh;overflow-y:auto;
+ z-index:1200!important;
+}
 </style><link rel="stylesheet" href="stage16-p31.css?v=stage16-structure-20261117"></head><body><div id="phase8-isolation-notice" role="status" style="position:relative;z-index:20;padding:8px 12px;background:#604512;color:#fffbe8;font:600 13px/1.4 system-ui;text-align:center">Phase 8 隔離検証：P31派生版の元ロジックを使用／正式D07F未統合／本番利用禁止</div>
 <div role="status" class="qa-isolation-warning" style="position:relative;z-index:99999;background:#6a2e00;color:white;font:600 12px system-ui;padding:5px;text-align:center">P31隔離検証版・実戦データ入力禁止（架空データのみ）</div><header><div class="row between"><div><h1>ジャグログ <small class="development-version">Phase 3 開発 v46.9 フォーカス表示調整版</small></h1><div id="activeSummary" class="muted" style="font-size:12px">読み込み中</div></div><button id="sessionsBtn">台一覧</button></div><div id="alerts"></div><details id="emergencyImportPanel" class="emergency-export-panel"><summary>緊急退避JSONを照合（読み取り専用・復元しない）</summary><p class="muted">緊急退避専用JSONだけを選択してください。通常の実戦バックアップとは形式が異なります。選択しても記録は追加・変更されません。</p><input id="emergencyImportFile" type="file" accept=".json,application/json" aria-label="緊急退避JSONファイル"><button type="button" id="emergencyImportCheckBtn">退避JSONを検証・保存済み記録と照合</button><pre id="emergencyImportResult" role="status" aria-live="polite" style="white-space:pre-wrap;overflow-wrap:anywhere;max-height:220px;overflow:auto">ファイルを選択して照合してください。</pre></details><div id="emergencyExportPanel" class="emergency-export-panel" hidden><button type="button" id="emergencyExportBtn" class="danger">未保存操作を緊急退避JSONに書き出す</button><p id="emergencyExportStatus" class="muted">保存に失敗した操作を退避します。通常の実戦バックアップではありません。保存完了はファイル側で確認してください。</p></div></header><main>
 <section id="tab-play"><div id="noSession" class="panel"><h2>実戦を始める</h2><p class="muted">最初に店舗・機種を登録してください。台番号は任意です。</p><button class="primary" id="newBtn">新規実戦を作成</button></div><div id="playing" class="hidden"><div class="panel"><div class="row between"><h2>実戦カウント</h2><span id="saveStatus" class="tag">準備中</span></div><div class="top-g-stats"><div class="kpi hall-total"><small>総ゲーム数</small><strong id="totalG">—</strong></div><div class="kpi"><small>本人G</small><strong id="personalG">0</strong></div><div class="kpi"><small>現在G</small><strong id="currentG">—</strong></div></div><div class="game-controls"><div class="row between"><label for="addG">G数追加</label><span class="muted hint">本人消化Gを加算</span></div><div class="game-input-row"><input id="addG" type="number" min="1" step="1" inputmode="numeric" placeholder="G数（例23）" aria-label="本人消化ゲーム数を手入力"><button id="addGBtn" class="primary">追加</button><button id="quick50" class="quick">+50G</button><button id="quick100" class="quick">+100G</button></div><label class="measure-check"><input id="measuredBoth" type="checkbox">追加Gの全ゲームでぶどう・チェリーを実測した</label></div><div class="action-board sp"><div class="action-right"><div class="record-card bb"><button type="button" class="tap bb" id="bbBtn" aria-label="BBを記録"><span class="record-symbol">BB</span></button><button type="button" class="record-minus" id="bbMinus" aria-label="直近のBB記録を取消">−</button><div class="record-footer"><strong id="bbN">0</strong></div></div><div class="record-card rb"><button type="button" class="tap rb" id="rbBtn" aria-label="RBを記録"><span class="record-symbol">RB</span></button><button type="button" class="record-minus" id="rbMinus" aria-label="直近のRB記録を取消">−</button><div class="record-footer"><strong id="rbN">0</strong></div></div></div><div class="action-left"><div class="record-card grape"><button type="button" class="tap grape" id="grapeBtn" aria-label="ぶどうを記録"><span class="record-symbol"><svg viewBox="0 0 100 100" class="fruit-icon" aria-hidden="true" fill="currentColor"><path d="M52 20Q44 7 54 3L59 7Q54 13 57 20ZM50 20Q60 1 85 14Q70 35 50 20Z"/><circle cx="35" cy="34" r="13"/><circle cx="63" cy="34" r="13"/><circle cx="24" cy="53" r="13"/><circle cx="50" cy="53" r="13"/><circle cx="76" cy="53" r="13"/><circle cx="38" cy="73" r="13"/><circle cx="63" cy="73" r="13"/><circle cx="51" cy="90" r="9"/></svg></span></button><button type="button" class="record-minus" id="grapeMinus" aria-label="直近のぶどう記録を取消">−</button><div class="record-footer"><strong id="grapeN">0</strong><span class="stat-divider" aria-hidden="true"></span><b id="grapeRate">—</b></div></div><div class="record-card cherry"><button type="button" class="tap cherry" id="cherryBtn" aria-label="チェリーを記録"><span class="record-symbol"><svg viewBox="0 0 100 100" class="fruit-icon" aria-hidden="true" fill="currentColor"><path d="M50 21Q30 33 28 56M50 21Q71 33 73 56" stroke="currentColor" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M50 21Q61 0 82 14Q70 31 50 21Z"/><circle cx="28" cy="71" r="21"/><circle cx="72" cy="71" r="21"/></svg></span></button><button type="button" class="record-minus" id="cherryMinus" aria-label="直近のチェリー記録を取消">−</button><div class="record-footer"><strong id="cherryN">0</strong><span class="stat-divider" aria-hidden="true"></span><b id="cherryRate">—</b></div></div></div></div><div class="four sp"><div class="kpi"><small>保留BB/RB</small><strong id="pendingN">0</strong></div><div class="kpi uncompleted-kpi"><div class="uncompleted-value"><small>未消化</small><strong id="uncompletedN">0</strong></div><button id="quickComplete" type="button" class="quick-complete" hidden>消化完了</button></div></div><div class="hall-prob" id="hallProb"><div class="prob-head">総ゲーム数基準の当選確率 <span id="hallProbBase">未観測</span></div><div class="prob-grid"><div><small>BB</small><strong id="hallBBRate">—</strong></div><div><small>RB</small><strong id="hallRBRate">—</strong></div><div><small>合算</small><strong id="hallCombinedRate">—</strong></div></div></div><div class="guess-mini" id="guessMini"><span class="muted">設定推測：実績入力後に表示します</span></div><details class="play-help"><summary>小役計算・当選契機の注意事項</summary><p class="hint muted">小役率＝本人G ÷ 回数（全Gで実測した場合のみ）。未測定Gがあれば小役は推測に使用しません。チェリー重複の登録だけではチェリーは自動加算されません。今回のチェリーをまだ記録していない場合だけ、チェリーを+1してください。契機不明は無理に単独と判定しません。</p></details></div><div class="panel hall-panel"><h2>ホール観測（本人Gとは別）</h2><details><summary>ホール表示値を記録（本人Gとは別）</summary><div class="grid sp"><div><label>累計G</label><input type="number" min="0" id="hallG" placeholder="不明なら空欄"></div><div><label>現在G</label><input type="number" min="0" id="hallCurrent" placeholder="不明なら空欄"></div><div><label>累計BB</label><input type="number" min="0" id="hallBB" placeholder="不明なら空欄"></div><div><label>累計RB</label><input type="number" min="0" id="hallRB" placeholder="不明なら空欄"></div></div><button id="snapshotBtn" class="sp">観測値を保存</button></details><div id="hallView" class="hint muted sp"></div></div><div class="panel supporting-panel"><details><summary>収支・差枚の実測入力</summary><p class="hint muted">現金とメダルは別管理。会員カードへの貯玉は現金回収に含めません。差枚は確認できた実測値だけを入力してください。</p><div class="finance-summary" id="financeMini"></div><div class="finance-form sp"><div><label for="financeType">記録する項目</label><select id="financeType"><option value="CASH_INVESTED">現金投資（円）</option><option value="CASH_RECOVERED">現金回収（円）</option><option value="MEDALS_BALANCE_OBSERVED">持ちメダル残高（枚）</option><option value="NET_MEDALS_OBSERVED">累計差枚の実測（±枚）</option><option value="MEDALS_INSERTED">投入枚数（枚・記録分）</option><option value="MEDALS_PAID_OUT">獲得枚数（枚・記録分）</option></select></div><div><label for="financeAmount">金額・枚数</label><input id="financeAmount" type="number" step="1" inputmode="numeric" placeholder="例：1000"></div><button id="financeAddBtn" class="primary">実測値を保存</button></div><p class="hint muted sp">投入・獲得枚数の記録が一部だけの場合、その差を実際の差枚とは扱いません。実測差枚はグラフに点として表示します。</p></details></div><div class="panel supporting-panel"><details><summary>会員カード・貯メダル</summary><p class="hint muted">店舗ごとに管理。入庫・引出はメダルの移動であり、現金回収や差枚に加算しません。残高は実測値を基点に追跡します。</p><div id="cardMini" class="finance-summary"></div><div class="finance-form sp"><div><label for="cardLabel">カードの識別名（同じ店舗で区別）</label><input id="cardLabel" type="text" maxlength="60" value="会員カード" placeholder="会員カード"></div><div><label for="cardType">操作</label><select id="cardType"><option value="CARD_DEPOSIT">貯メダル入庫（枚）</option><option value="CARD_WITHDRAWAL">貯メダル引出（枚）</option><option value="CARD_BALANCE_OBSERVED">残高を確認（枚）</option></select></div><div><label for="cardAmount">枚数</label><input id="cardAmount" type="number" step="1" min="0" inputmode="numeric" placeholder="例：208"></div><button id="cardAddBtn" class="primary">会員カードの記録を保存</button></div><p class="hint muted sp">最初にカードの残高を確認して入力すると、その後の入庫・引出を反映した残高を表示できます。残高未確認なら推測しません。</p></details></div><div class="panel"><div class="row between"><h2>ボーナス状態</h2><button id="undoBtn">直前の操作を取消</button></div><details class="bonus-guide"><summary>保留ボーナスの操作手順</summary><p class="hint muted">保留がある場合：先のボーナスを消化完了 → 「保留を確認」 → 消化完了の順に操作します。確認だけでは現在Gは0になりません。</p></details><div class="bonus-list-caption muted hint">ボーナス履歴（新しい順）</div><div id="bonuses"></div><div class="row sp session-actions" aria-label="実戦の中断・再開・終了"><button id="pauseBtn">一時中断</button><button id="resumeBtn">再開（新しい区間）</button><button id="closeBtn">実戦終了</button></div></div></div></section>
@@ -1854,17 +1886,19 @@ async function prepareLeaseForWrite(){
 async function releaseLease(){if(!db||!writer||pending.length||busy)return;try{const t=db.transaction('metadata','readwrite'),s=t.objectStore('metadata'),p=(await req(s.get('lease')))?.value;if(p?.ownerId===clientId&&p.epoch===epoch){p.expiresAt=0;p.updatedAt=Date.now();s.put({key:'lease',value:p})}await txPromise(t)}catch{}}
 
 // P15: validate cancellation/restore against the committed history inside the write transaction.
-function validateCorrectionDependencies(history, upcoming){
+function validateCorrectionDependencies(history, upcoming, persistedSessionsSnapshot){
+ const corrections=upcoming.filter(e=>['EVENT_CANCELLED','EVENT_RESTORED'].includes(e.type));
+ // Normal gameplay has no correction dependency to validate; avoid sorting and replaying all history.
+ if(corrections.length===0)return true;
  const ordered=history.slice().sort((a,b)=>a.commitSequence-b.commitSequence);
  const byId=new Map(ordered.map(e=>[e.eventId,e]));
  const cancelled=new Set();
  for(const e of ordered){if(e.type==='EVENT_CANCELLED')cancelled.add(e.targetEventId);if(e.type==='EVENT_RESTORED')cancelled.delete(e.targetEventId)}
  const effective=ordered.filter(e=>!cancelled.has(e.eventId)&&!['EVENT_CANCELLED','EVENT_RESTORED'].includes(e.type));
- const corrections=upcoming.filter(e=>['EVENT_CANCELLED','EVENT_RESTORED'].includes(e.type));
  if(corrections.length>1)throw Error('複数の訂正は一操作ずつ保存してください');
  // Stage 8: Recheck the PERSISTED lifecycle state inside the same readwrite transaction.
  // Closed sessions permit only narrowly scoped history correction, never new gameplay.
- const persistedSessions=replay(ordered);
+ const persistedSessions=persistedSessionsSnapshot??replay(ordered);
  const closedCorrectionTypes=new Set(['GAMES_RECORDED','GRAPE_COUNTED','CHERRY_COUNTED']);
  for(const e of corrections){
   const target=byId.get(e.targetEventId);
@@ -1895,10 +1929,10 @@ function validateCorrectionDependencies(history, upcoming){
  return true;
 }
 // P18: fail closed on stale lifecycle transitions, under the same write transaction as append.
-function validateSessionLifecycle(committed, incoming){
+function validateSessionLifecycle(committed, incoming, persistedSessionsSnapshot){
  const lifecycle=new Set(['SESSION_CREATED','SESSION_PAUSED','SESSION_RESUMED','SEGMENT_STARTED','SESSION_CLOSED_PENDING','SESSION_CLOSED_CONFIRMED']);
  if(!incoming.some(e=>lifecycle.has(e.type)))return true;
- const sessions=replay(committed);
+ const sessions=persistedSessionsSnapshot??replay(committed);
  const bySession=new Map();
  for(const e of incoming){if(!e.sessionId||typeof e.sessionId!=='string')throw Error('実戦IDが不正です');
   if(!bySession.has(e.sessionId))bySession.set(e.sessionId,[]);bySession.get(e.sessionId).push(e)}
@@ -1924,10 +1958,10 @@ function validateSessionLifecycle(committed, incoming){
 }
 // BUG-007: Authorize new records using the persisted session state INSIDE the append transaction.
 // Corrections retain the existing dependency checks; lifecycle transitions have their own validator.
-function validateSessionRecordWrites(committed,incoming){
+function validateSessionRecordWrites(committed,incoming,persistedSessionsSnapshot){
  const lifecycle=new Set(['SESSION_CREATED','SESSION_PAUSED','SESSION_RESUMED','SEGMENT_STARTED','SESSION_CLOSED_PENDING','SESSION_CLOSED_CONFIRMED']);
  const correction=new Set(['EVENT_CANCELLED','EVENT_RESTORED']);
- const sessions=replay(committed);
+ const sessions=persistedSessionsSnapshot??replay(committed);
  for(const e of incoming){
   if(lifecycle.has(e.type)||correction.has(e.type))continue;
   if(!e.sessionId||typeof e.sessionId!=='string')throw Error('記録先の実戦IDが不正です');
@@ -1963,10 +1997,12 @@ async function append(items,operationId=UID(),prepared=null){if(!writer)throw Er
  // P15: all committed events and dependency states are read in this same readwrite transaction.
  // The existing lease and operation-id checks above stay authoritative.
  const committed=(await req(store.getAll())).sort((a,b)=>a.commitSequence-b.commitSequence);
- validateCorrectionDependencies(committed,all);
- validateSessionLifecycle(committed,all);
- validateSessionRecordWrites(committed,all);
- validateStage14Writes(committed,all);
+ // Replay persisted state only once for all safety validators.
+ const persistedSessions=replay(committed);
+ validateCorrectionDependencies(committed,all,persistedSessions);
+ validateSessionLifecycle(committed,all,persistedSessions);
+ validateSessionRecordWrites(committed,all,persistedSessions);
+ validateStage14Writes(committed,all,persistedSessions);
  all.forEach((e,i)=>store.add({...e,commitSequence:last+i+1}));m.put({key:'sequence',value:last+all.length});await txPromise(t);return all}catch(e){if(t&&t.readyState==='active')t.abort();throw e}}
 function correctedEvents(ev){let cancelled=new Set();for(const e of ev){if(e.type==='EVENT_CANCELLED')cancelled.add(e.targetEventId);if(e.type==='EVENT_RESTORED')cancelled.delete(e.targetEventId)}return ev.filter(e=>!cancelled.has(e.eventId)&&!['EVENT_CANCELLED','EVENT_RESTORED'].includes(e.type))}
 function replay(ev){const all=correctedEvents(ev);let sessions=new Map();const bonusIndexes=new Map();for(const e of all){let s=sessions.get(e.sessionId);if(e.type==='SESSION_CREATED'){s={id:e.sessionId,store:e.store,machine:e.machine,number:e.number,date:e.date,measuredG:0,hasUnmeasuredG:false,status:'ACTIVE',segment:e.segmentId,segments:1,g:0,current:null,hallTotalLive:null,grape:0,cherry:0,bonuses:[],snapshots:[],nonOverlapCherry:undefined,nonOverlapCherryVerified:false};sessions.set(e.sessionId,s);bonusIndexes.set(e.sessionId,new Map());continue}if(!s)continue;switch(e.type){case 'SEGMENT_STARTED':s.segment=e.segmentId;s.segments++;break;case 'CURRENT_G_BASELINE':s.current=e.currentG;break;case 'GAMES_RECORDED':s.g+=e.delta;if(s.hallTotalLive!==null)s.hallTotalLive+=e.delta;if(e.measuredBoth===true)s.measuredG+=e.delta;else s.hasUnmeasuredG=true;if(s.current!==null)s.current+=e.delta;break;case 'GRAPE_COUNTED':s.grape++;break;case 'CHERRY_COUNTED':s.cherry++;break;case 'NON_OVERLAP_CHERRY_VERIFIED':break;case 'HALL_SNAPSHOT_RECORDED':s.snapshots.push(e);if(Number.isSafeInteger(e.totalG)&&e.totalG>=0){const zeroStart=e.totalG===0&&e.currentG===0&&e.bb===0&&e.rb===0;s.hallTotalLive=zeroStart?s.g:e.totalG;}if(e.currentG!==null)s.current=e.currentG;break;case 'BONUS_AWARDED':{const b={...e,completed:false};s.bonuses.push(b);const idx=bonusIndexes.get(e.sessionId);if(!idx.has(e.bonusId))idx.set(e.bonusId,b);break}case 'BONUS_REVIEW_CONFIRMED':{const b=bonusIndexes.get(e.sessionId)?.get(e.bonusId);if(b&&b.pendingReview)b.pendingReview=false;break}case 'BONUS_COMPLETED':{let b=bonusIndexes.get(e.sessionId)?.get(e.bonusId);if(b)b.completed=true;s.current=0;break}case 'SESSION_PAUSED':s.status='PAUSED';break;case 'SESSION_RESUMED':s.status='ACTIVE';break;case 'SESSION_CLOSED_PENDING':s.status='CLOSED_PENDING';break;case 'SESSION_CLOSED_CONFIRMED':s.status='CLOSED_CONFIRMED';break;}}
@@ -2004,7 +2040,25 @@ function notifyInApp(message,level='info'){
 }
 $('notificationDensity').onchange=renderNotificationHistory;
 $('notificationClear').onclick=()=>{notificationHistory.length=0;renderNotificationHistory()};
-function showAlert(msg,kind='warning'){const e=document.createElement('div');e.className=kind;e.textContent=msg;$('alerts').replaceChildren(e)}function clearAlert(){$('alerts').replaceChildren()}function syncEmergencyExport(){const p=$('emergencyExportPanel');if(!p)return;p.hidden=pending.length===0;$('emergencyExportBtn').disabled=pending.length===0;}function updateQueue(){syncEmergencyExport();if(pending.length){showAlert(`未保存 ${pending.length}件：画面終了で失われる可能性があります。`,'danger')}else clearAlert()}// P4: advisory acceptance-time anchor. Read-only snapshot; never authorizes recovery.
+function showAlert(msg,kind='warning'){const e=document.createElement('div');e.className=kind;e.textContent=msg;$('alerts').replaceChildren(e)}function clearAlert(){$('alerts').replaceChildren()}// Stage17 Candidate3: do not flash the emergency-export panel during ordinary fast writes.
+// The pending queue and safety gates are unchanged; a sustained pending operation still exposes export.
+let stage17EmergencyDisplayTimer=null;
+function syncEmergencyExport(){
+ const panel=$('emergencyExportPanel'),button=$('emergencyExportBtn');
+ if(!panel||!button)return;
+ const hasPending=pending.length>0;
+ button.disabled=!hasPending;
+ if(!hasPending){
+  if(stage17EmergencyDisplayTimer!==null){clearTimeout(stage17EmergencyDisplayTimer);stage17EmergencyDisplayTimer=null;}
+  panel.hidden=true;
+  return;
+ }
+ if(!panel.hidden||stage17EmergencyDisplayTimer!==null)return;
+ stage17EmergencyDisplayTimer=setTimeout(()=>{
+  stage17EmergencyDisplayTimer=null;
+  if(pending.length>0){panel.hidden=false;button.disabled=false;}
+ },750);
+}function updateQueue(){syncEmergencyExport();if(pending.length){showAlert(`未保存 ${pending.length}件：画面終了で失われる可能性があります。`,'danger')}else clearAlert()}// P4: advisory acceptance-time anchor. Read-only snapshot; never authorizes recovery.
 async function captureAcceptanceAnchor(operationId,prepared){
  if(!db||!writer||document.hidden||!epoch)throw Error('入力受付時点の保存状態を確認できません');
  const t=db.transaction(['metadata','events'],'readonly');
@@ -2531,6 +2585,68 @@ function renderIntervalCompare(){
  }catch(e){out.textContent='比較できません：'+e.message}
 }
 $('intervalCompareBtn').addEventListener('click',renderIntervalCompare);
+// Stage17 Candidate2: cache only expensive projections when the persisted event-view
+// object, selected session and the relevant UI preferences have not changed.
+// Every render still updates live counters, writer/lease/busy status and controls.
+// A fresh refresh() replaces view, so data modifications always invalidate this cache.
+let stage17HeavyView=null,stage17HeavyActive=null,stage17GuessKey=null,stage17CardKey=null;
+function stage17RenderHeavy(s){
+ const changed=stage17HeavyView!==view||stage17HeavyActive!==active;
+ const guessKey=$('guessScope').value+'\u0000'+$('guessMode').value;
+ const cardKey=$('cardLabel').value;
+ if(changed||stage17GuessKey!==guessKey)renderGuess(s);
+ if(changed)renderFinance(s);
+ else{
+  const enabled=!!s&&writer&&!busy&&!pending.length;
+  $('financeAddBtn').disabled=!enabled;
+  document.querySelectorAll('#financeRows button').forEach(b=>{b.disabled=!enabled});
+ }
+ if(changed||stage17CardKey!==cardKey)renderCards(s);
+ else{
+  const enabled=!!s&&s.status==='ACTIVE'&&writer&&!busy&&!pending.length&&!document.hidden&&!p8JournalRead();
+  $('cardAddBtn').disabled=!enabled;
+  document.querySelectorAll('#cardRows button').forEach(b=>{b.disabled=!writer||busy||pending.length>0});
+ }
+ // Set the cache only after all rendering completes successfully.
+ stage17HeavyView=view;stage17HeavyActive=active;stage17GuessKey=guessKey;stage17CardKey=cardKey;
+}
+// Stage17 Candidate5: allow the Play screen to paint and enable input before
+// rendering heavy summaries that are not required for the first count.
+// A future state update is read at execution time so stale results are never shown.
+let stage17InitialHeavyPending=true;
+let stage17InitialHeavyScheduled=false;
+function stage17FlushInitialHeavy(){
+ if(!stage17InitialHeavyPending)return;
+ stage17InitialHeavyPending=false;
+ stage17InitialHeavyScheduled=false;
+ if(!project)return;
+ stage17RenderHeavy(project.get(active));
+}
+function stage17ScheduleInitialHeavy(){
+ if(stage17InitialHeavyScheduled)return;
+ stage17InitialHeavyScheduled=true;
+ // A rendering opportunity is given to the Play screen before heavy summaries.
+ requestAnimationFrame(()=>setTimeout(()=>{
+  if(!stage17InitialHeavyPending)return;
+  try{stage17FlushInitialHeavy()}catch(err){
+   console.error('Stage17 deferred summaries failed',err);
+   // Keep the UI truthful: the summary update is incomplete; prevent stale cache.
+   stage17HeavyView=null;
+  }
+ },0));
+}
+function stage17RenderHeavyForCurrentTab(s){
+ if(stage17InitialHeavyPending&&currentTab==='play'){
+  stage17ScheduleInitialHeavy();
+  return;
+ }
+ // If the user opens another tab before the deferred job, render immediately.
+ if(stage17InitialHeavyPending){
+  stage17InitialHeavyPending=false;
+  stage17InitialHeavyScheduled=false;
+ }
+ stage17RenderHeavy(s);
+}
 function render(){if(project){try{if(active&&project.has(active))localStorage.setItem('juglog_stage11_isolated_20261107_active_session',active);else localStorage.removeItem('juglog_stage11_isolated_20261107_active_session') }catch{}}window.dispatchEvent(new CustomEvent('juglog:p31:state-v1',{detail:Object.freeze({writer:!!writer,busy:!!busy,pending:pending.length,active:!!active,visible:!document.hidden})}));syncEmergencyExport();const s=project?.get(active);$('activeSummary').textContent=s?`${s.store}｜${s.machine}｜${s.number}番台 ｜ ${s.status}`:'実戦未選択';$('noSession').classList.toggle('hidden',!!s);$('playing').classList.toggle('hidden',!s);$('saveStatus').textContent=pending.length?`未保存 ${pending.length}`:writer?'保存済み':'閲覧専用';if(!writer){$('saveStatus').textContent='閲覧専用：'+leaseReason;}$('saveStatus').title=writer?'この画面で入力可能です。':`${leaseReason}。自動的に再確認します。`;$('saveStatus').setAttribute('aria-label',writer?'保存済み・入力可能':`閲覧専用：${leaseReason}`);if(s){$('totalG').textContent=(s.hallTotalLive??s.g).toLocaleString();$('personalG').textContent=s.g.toLocaleString();$('currentG').textContent=s.current??'—';$('grapeN').textContent=s.grape;$('cherryN').textContent=s.cherry;const rateReady=s.g>0&&!s.hasUnmeasuredG&&s.measuredG===s.g;$('grapeRate').textContent=rateReady&&s.grape>0?'1/'+(s.measuredG/s.grape).toFixed(2):'—';$('cherryRate').textContent=rateReady&&s.cherry>0?'1/'+(s.measuredG/s.cherry).toFixed(2):'—';$('bbN').textContent=s.bonuses.filter(b=>b.bonusType==='BB'&&!b.pendingReview).length;$('rbN').textContent=s.bonuses.filter(b=>b.bonusType==='RB'&&!b.pendingReview).length;$('pendingN').textContent=s.bonuses.filter(b=>b.pendingReview).length;$('uncompletedN').textContent=s.bonuses.filter(b=>!b.completed).length;const hall=s.snapshots.at(-1),hallOK=hall&&Number.isSafeInteger(hall.totalG)&&hall.totalG>0&&Number.isSafeInteger(hall.bb)&&hall.bb>=0&&Number.isSafeInteger(hall.rb)&&hall.rb>=0&&hall.bb+hall.rb<=hall.totalG;const hr=(v)=>hallOK&&v>0?'1/'+(hall.totalG/v).toFixed(1):'—';$('hallBBRate').textContent=hr(hall?.bb);$('hallRBRate').textContent=hr(hall?.rb);$('hallCombinedRate').textContent=hr((hall?.bb??0)+(hall?.rb??0));$('hallProbBase').textContent=hallOK?hall.totalG.toLocaleString()+'G基準':'同一観測のG・BB・RBが必要';const snap=s.snapshots.at(-1);$('hallView').textContent=snap?`最終観測：累計G ${snap.totalG??'不明'}／現在G ${snap.currentG??'不明'}／BB ${snap.bb??'不明'}／RB ${snap.rb??'不明'}`:'ホール観測値は未入力';$('bonuses').replaceChildren();const bonusSessionEvents=view.filter(e=>e.sessionId===active),bonusEffectiveEvents=correctedEvents(bonusSessionEvents),bonusLastEffective=bonusEffectiveEvents.at(-1),bonusCompletionById=new Map(bonusEffectiveEvents.filter(e=>e.type==='BONUS_COMPLETED').map(e=>[e.bonusId,e])),firstPendingBonus=s.bonuses.find(x=>x.pendingReview),hasBlockingBonus=s.bonuses.some(x=>!x.completed&&!x.pendingReview);const bonusFragment=document.createDocumentFragment();s.bonuses.slice().reverse().forEach(b=>{const line=document.createElement('div');line.className='event';const label=document.createElement('span');label.textContent=`${b.bonusType}｜${b.triggerVerification==='confirmed'?b.trigger+'（確認済み）':b.trigger==='不明'?'契機不明':b.trigger+'（旧版・未検証）'}｜${b.pendingReview?'保留':b.completed?'消化済み':'未消化'}`;line.append(label);if(b.pendingReview){
  const confirmBtn=document.createElement('button');confirmBtn.textContent='保留を確認';
  const firstPending=firstPendingBonus;
@@ -2552,7 +2668,7 @@ function render(){if(project){try{if(active&&project.has(active))localStorage.se
   };line.append(btn);
  }
  }else if(!b.completed){const btn=document.createElement('button');btn.textContent='消化完了';btn.disabled=!writer||busy||!!pending.length||s.status!=='ACTIVE';btn.onclick=()=>{const now=project?.get(active);if(!now||now.status!=='ACTIVE'||!now.bonuses.some(x=>x.bonusId===b.bonusId&&!x.completed&&!x.pendingReview))return;if(confirm(b.bonusType+'を消化完了し、現在Gを0にしますか？'))run([{type:'BONUS_COMPLETED',bonusId:b.bonusId,completedSegmentId:now.segment}])};line.append(btn)}bonusFragment.append(line)});$('bonuses').append(bonusFragment);['grapeBtn','cherryBtn','bbBtn','rbBtn','addGBtn','quick50','quick100','grapeMinus','cherryMinus','bbMinus','rbMinus','snapshotBtn','pauseBtn','resumeBtn','closeBtn','undoBtn'].forEach(id=>$(id).disabled=!writer||busy||pending.length>0||(s.status!=='ACTIVE'&&!['resumeBtn','undoBtn'].includes(id))||(s.status==='ACTIVE'&&id==='resumeBtn'));const outstanding=s.bonuses.slice().reverse().find(b=>!b.completed&&!b.pendingReview);$('quickComplete').hidden=!outstanding;$('quickComplete').disabled=!writer||busy||pending.length>0||s.status!=='ACTIVE';$('quickComplete').textContent=outstanding?outstanding.bonusType+' 消化完了':'';$('quickComplete').title=outstanding?'消化完了で現在Gを0にします':'';$('quickComplete').setAttribute('aria-label',outstanding?outstanding.bonusType+'を消化完了し、現在Gを0にする':'消化完了');}
-if(currentTab==='history'){renderInterval();drawCheckpoints();$('historyRows').replaceChildren();const historyVisible=[];let historyCount=0;const historyShowAll=$('historyScope').value==='all'||!active;for(let i=view.length-1;i>=0;i--){const e=view[i];if(!historyShowAll&&e.sessionId!==active)continue;historyCount++;if(historyExpanded||historyVisible.length<10)historyVisible.push(e)}const historyMore=$('historyMoreBtn');historyMore.hidden=historyCount<=10;historyMore.textContent=historyExpanded?'古い履歴を折りたたむ':`過去の履歴をすべて表示（残り${historyCount-10}件）`;historyMore.setAttribute('aria-expanded',String(historyExpanded));const historyFragment=document.createDocumentFragment();historyVisible.forEach(e=>{const d=document.createElement('div');d.className='event';const text=document.createElement('span');text.textContent=`#${e.commitSequence} ${nice(e)}`;d.append(text);if(e.type==='EVENT_CANCELLED'){const b=document.createElement('button');b.textContent='取消を復元';b.disabled=!writer;b.onclick=()=>{const target=view.find(x=>x.eventId===e.targetEventId);const relevant=view.filter(x=>x.sessionId===e.sessionId);const state=new Set();for(const x of relevant){if(x.type==='EVENT_CANCELLED')state.add(x.targetEventId);if(x.type==='EVENT_RESTORED')state.delete(x.targetEventId)}if(!target||!state.has(e.targetEventId)){alert('この操作は現在取消済みではありません。');return}if(target.type==='BONUS_COMPLETED'&&view.at(-1)?.eventId!==e.eventId){alert('消化完了の取消後に操作があるため、復元できません。');return}if(target.type==='BONUS_AWARDED'&&(replay(relevant).get(e.sessionId)?.bonuses.some(x=>x.bonusId===target.bonusId)||correctedEvents(relevant).some(x=>['BONUS_COMPLETED','BONUS_REVIEW_CONFIRMED'].includes(x.type)&&x.bonusId===target.bonusId))){alert('同一ボーナスまたは依存操作が有効なため、復元を保留します。');return}if(confirm('取消した操作を復元しますか？'))run([{type:'EVENT_RESTORED',targetEventId:e.targetEventId}])};d.append(b)}historyFragment.append(d)});$('historyRows').append(historyFragment);} $('leaseInfo').textContent=writer?`入力権限あり（世代 ${epoch}）。3秒ごとに更新します。`:`閲覧専用：${leaseReason}。${leaseWaitSeconds!==null?`前回確認時の期限まで約${leaseWaitSeconds}秒。`:''}表示中は入力できません。自動再確認は3秒間隔です。`; $('takeoverBtn').disabled=writer;renderGuess(s);if(currentTab==='graphs')renderGraphs(s);renderFinance(s);renderCards(s);if(currentTab==='history')renderSessionHistory();if(currentTab==='settings')renderAudit();if(currentTab==='guess')renderPreseatHistory()}
+if(currentTab==='history'){renderInterval();drawCheckpoints();$('historyRows').replaceChildren();const historyVisible=[];let historyCount=0;const historyShowAll=$('historyScope').value==='all'||!active;for(let i=view.length-1;i>=0;i--){const e=view[i];if(!historyShowAll&&e.sessionId!==active)continue;historyCount++;if(historyExpanded||historyVisible.length<10)historyVisible.push(e)}const historyMore=$('historyMoreBtn');historyMore.hidden=historyCount<=10;historyMore.textContent=historyExpanded?'古い履歴を折りたたむ':`過去の履歴をすべて表示（残り${historyCount-10}件）`;historyMore.setAttribute('aria-expanded',String(historyExpanded));const historyFragment=document.createDocumentFragment();historyVisible.forEach(e=>{const d=document.createElement('div');d.className='event';const text=document.createElement('span');text.textContent=`#${e.commitSequence} ${nice(e)}`;d.append(text);if(e.type==='EVENT_CANCELLED'){const b=document.createElement('button');b.textContent='取消を復元';b.disabled=!writer;b.onclick=()=>{const target=view.find(x=>x.eventId===e.targetEventId);const relevant=view.filter(x=>x.sessionId===e.sessionId);const state=new Set();for(const x of relevant){if(x.type==='EVENT_CANCELLED')state.add(x.targetEventId);if(x.type==='EVENT_RESTORED')state.delete(x.targetEventId)}if(!target||!state.has(e.targetEventId)){alert('この操作は現在取消済みではありません。');return}if(target.type==='BONUS_COMPLETED'&&view.at(-1)?.eventId!==e.eventId){alert('消化完了の取消後に操作があるため、復元できません。');return}if(target.type==='BONUS_AWARDED'&&(replay(relevant).get(e.sessionId)?.bonuses.some(x=>x.bonusId===target.bonusId)||correctedEvents(relevant).some(x=>['BONUS_COMPLETED','BONUS_REVIEW_CONFIRMED'].includes(x.type)&&x.bonusId===target.bonusId))){alert('同一ボーナスまたは依存操作が有効なため、復元を保留します。');return}if(confirm('取消した操作を復元しますか？'))run([{type:'EVENT_RESTORED',targetEventId:e.targetEventId}])};d.append(b)}historyFragment.append(d)});$('historyRows').append(historyFragment);} $('leaseInfo').textContent=writer?`入力権限あり（世代 ${epoch}）。3秒ごとに更新します。`:`閲覧専用：${leaseReason}。${leaseWaitSeconds!==null?`前回確認時の期限まで約${leaseWaitSeconds}秒。`:''}表示中は入力できません。自動再確認は3秒間隔です。`; $('takeoverBtn').disabled=writer;stage17RenderHeavyForCurrentTab(s);if(currentTab==='graphs')renderGraphs(s);if(currentTab==='history')renderSessionHistory();if(currentTab==='settings')renderAudit();if(currentTab==='guess')renderPreseatHistory()}
 function switchTab(tab){if(tab==='settings'&&db)void renderBackupOverview();const changed=currentTab!==tab;currentTab=tab;document.querySelectorAll('main>section').forEach(el=>el.classList.toggle('hidden',el.id!==`tab-${tab}`));document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));if(changed&&project)render()}document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>switchTab(b.dataset.tab));
 function modal(title,html,onOk){$('modal').querySelector('button[value="cancel"]').style.display='';$('modalOk').textContent='確定';$('modalTitle').textContent=title;$('modalContent').innerHTML=html;const dialog=$('modal');const machineSelect=$('machineSelect');if(machineSelect){machineSelect.onchange=()=>{$('machineInput').hidden=machineSelect.value!=='other';};}dialog.showModal();const form=dialog.querySelector('form');form.onsubmit=e=>{if(e.submitter?.value!=='ok')return;e.preventDefault();Promise.resolve(onOk()).then(ok=>{if(ok!==false)dialog.close()}).catch(err=>showAlert(err.message,'danger'))}}
 function num(id){const val=$(id).value.trim();if(!val)return null;const n=Number(val);if(!Number.isSafeInteger(n)||n<0)throw Error('数値は0以上の整数で入力してください');return n}
@@ -2994,8 +3110,14 @@ function stage14CorrectableGameTail(effective,sessionId,adjustment){
 }
 // Stage14: Validate direct-count invariants inside the same DB transaction as append.
 // Older events without stage14 fields keep their previous semantics.
-function validateStage14Writes(committed,incoming){
- const existing=replay(committed);
+function validateStage14Writes(committed,incoming,persistedSessionsSnapshot){
+ // Stage14 checks apply only to a subset of current-G writes and corrections.
+ const needsStage14=incoming.some(e=>
+   (e.type==='EVENT_CANCELLED'&&e.stage14CurrentExpected!==undefined)||
+   e.type==='CURRENT_G_BASELINE'||
+   (e.type==='GAMES_RECORDED'&&e.stage14ExpectedCurrent!==undefined));
+ if(!needsStage14)return;
+ const existing=persistedSessionsSnapshot??replay(committed);
  const effective=correctedEvents(committed);
  for(const e of incoming){
   if(e.type==='EVENT_CANCELLED'&&e.stage14CurrentExpected!==undefined){
