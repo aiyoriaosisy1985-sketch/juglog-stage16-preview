@@ -186,7 +186,7 @@ html[data-theme=light] #p8-create-dialog input{background:#fff;color:#173b31;bor
   html .bottom button{min-height:44px;font-size:10px;gap:0;border-radius:8px;padding:0 2px}
   html .bottom svg{width:16px;height:16px}
   /* Stage18 dialogs: landscape-only layout; no JS, save, or portrait changes. */
-  html #p8-bonus-dialog{width:min(94vw,690px);max-width:calc(100vw - 20px);max-height:calc(100dvh - 16px);padding:10px 14px;scroll-padding-bottom:12px}
+  html #p8-bonus-dialog{width:min(92vw,560px);max-width:calc(100vw - 20px);max-height:calc(100dvh - 16px);padding:10px 14px;scroll-padding-bottom:12px}
   html #p8-bonus-dialog .p8-bonus-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 12px;align-items:center}
   html #p8-bonus-dialog .p8-bonus-form>h2{grid-column:1/-1;font-size:18px;line-height:1.15}
   html #p8-bonus-dialog .p8-bonus-form>label[for="stage19-award-games"]{grid-column:1;grid-row:2}
@@ -195,8 +195,8 @@ html[data-theme=light] #p8-create-dialog input{background:#fff;color:#173b31;bor
   html #p8-bonus-dialog #p8-bonus-trigger{grid-column:2;grid-row:3;min-height:44px;padding:6px 10px;font-size:15px}
   html #p8-bonus-dialog .p8-bonus-form>p:first-of-type{grid-column:1/-1;grid-row:4;font-size:12px;line-height:1.25}
   html #p8-bonus-dialog .p8-bonus-form>p:nth-of-type(2){grid-column:1/-1;grid-row:5;font-size:12px;line-height:1.3}
-  html #p8-bonus-dialog .p8-bonus-actions{grid-column:1/-1;grid-row:6;gap:8px}
-  html #p8-bonus-dialog .p8-bonus-actions button{min-height:44px;padding:6px 12px}
+  html #p8-bonus-dialog .p8-bonus-actions{grid-column:1/-1;grid-row:6;gap:8px;justify-content:center}
+  html #p8-bonus-dialog .p8-bonus-actions button{min-height:44px;min-width:130px;padding:6px 12px}
   html #p8-bonus-dialog #p8-bonus-feedback{grid-column:1/-1;grid-row:7}
 
   html #jgl15-keypad-dialog{width:min(92vw,440px);max-height:calc(100dvh - 16px);padding:10px 12px}
@@ -206,7 +206,7 @@ html[data-theme=light] #p8-create-dialog input{background:#fff;color:#173b31;bor
   html #jgl15-keypad-dialog .jgl15-keypad-actions{margin-top:7px;gap:7px}
   html #jgl15-keypad-dialog .jgl15-keypad-actions button{min-height:44px}
 
-  html #p8-create-dialog[open]{width:min(94vw,700px);max-height:calc(100dvh - 16px);padding:10px 14px}
+  html #p8-create-dialog[open]{width:min(92vw,600px);max-height:calc(100dvh - 16px);padding:10px 14px}
   html #p8-create-dialog .p8-bonus-form{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 12px}
   html #p8-create-dialog .p8-bonus-form>h2,
   html #p8-create-dialog .p8-bonus-form>.p8-measure-default,
@@ -216,15 +216,34 @@ html[data-theme=light] #p8-create-dialog input{background:#fff;color:#173b31;bor
   html #p8-create-dialog .p8-bonus-form :is(input,select){min-height:44px;padding:6px 9px}
   html #p8-create-dialog .p8-bonus-actions button{min-height:44px;padding:6px 10px}
 
-  html #p8-hall-dialog{width:min(94vw,700px);max-width:calc(100vw - 20px);max-height:calc(100dvh - 16px);overflow-y:auto;box-sizing:border-box;padding:12px 14px}
+  html #p8-hall-dialog{width:min(92vw,560px);max-width:calc(100vw - 20px);max-height:calc(100dvh - 16px);overflow-y:auto;box-sizing:border-box;padding:12px 14px}
   html #p8-hall-dialog .p8-hall-fields{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 12px}
   html #p8-hall-dialog .p8-hall-fields input{min-height:44px;margin-top:3px;padding:6px 8px}
   html #p8-hall-dialog .p8-hall-panel p{line-height:1.35;margin:4px 0}
   html #p8-hall-dialog .p8-hall-panel button{min-height:44px;margin-top:6px}
 
-  html .v122-confirm{width:min(92vw,620px);max-height:calc(100dvh - 16px);padding:12px 14px}
+  html .v122-confirm{width:min(90vw,420px);max-height:calc(100dvh - 16px);padding:12px 14px}
   html .v122-confirm p{font-size:14px;line-height:1.35;margin-bottom:8px}
   html .v122-confirm-actions button{min-height:44px}
+
+  /* Stage18 final: compact action groups and consistent controls (landscape only). */
+  html #stage19-fixed-actions{width:min(calc(100vw - 36px),310px);gap:5px;bottom:calc(70px + env(safe-area-inset-bottom))}
+  html #stage14-fixed-complete{min-height:46px;padding:7px 12px;font-size:15px}
+  html #stage19-fixed-cancel{min-height:44px;padding:7px 12px;font-size:14px}
+  html #p8-create-dialog .p8-bonus-form>.p8-measure-default{display:flex;align-items:center;gap:9px;min-height:44px;line-height:1.3}
+  html #p8-create-dialog .p8-bonus-form>.p8-measure-default input[type=checkbox]{display:inline-block;flex:0 0 22px;width:22px;height:22px;min-width:22px;min-height:22px;padding:0;margin:0;appearance:auto;-webkit-appearance:checkbox}
+  html #p8-hall-dialog #stage12-zero-start{display:block;width:min(100%,300px);min-height:44px;margin:6px auto}
+  html #p8-hall-dialog #p8-hall-form>button[type=submit]{display:block;width:min(100%,290px);min-height:44px;margin:8px auto 0}
+  html .v122-confirm-actions{justify-content:center;gap:9px}
+  html #panel-play .p8-session-actions{padding:10px 12px}
+  html #panel-play .p8-session-actions>.p8-session-buttons{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+  html #panel-play .p8-session-actions>.p8-session-buttons button{min-height:44px;padding:7px 9px;font-size:14px}
+  html #panel-play .p8-session-actions>.p8-session-buttons button:last-child{grid-column:1/-1;width:min(100%,310px);justify-self:center}
+  html #panel-play .p8-session-switch{gap:6px;margin-top:8px}
+  html #panel-play #p8-session-switch-btn{width:min(100%,340px);justify-self:center;min-height:44px}
+  html #panel-play #p8-hall-open{display:block;width:min(100%,340px);margin-inline:auto}
+  html #panel-play .v122-reconcile-row{width:min(100%,650px);margin:7px auto;gap:8px}
+  html #panel-play .v122-reconcile-row button{min-height:44px}
 }
 #panel-play .keywrap{min-width:0;}
 #panel-play .key{position:relative;min-width:0;width:100%;touch-action:manipulation;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:5px;overflow:hidden;}
