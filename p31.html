@@ -1,4 +1,4 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b1423"><title>【Phase 8隔離検証】P31派生エンジン｜本番使用禁止</title><style>
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b1423"><title>TEST｜【Phase 8隔離検証】P31派生エンジン｜本番使用禁止</title><style>
 :root{font-family:-apple-system,BlinkMacSystemFont,'Hiragino Kaku Gothic ProN',sans-serif;color:#182231;background:#f5f6f8}*{box-sizing:border-box}body{margin:0;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}header{position:sticky;top:0;background:#fff;border-bottom:1px solid #ddd;z-index:2;padding:12px 16px}main{margin:auto;padding:14px 14px 85px}.row{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.between{justify-content:space-between}.panel{background:white;border:1px solid #e2e4e9;border-radius:17px;padding:16px;margin:11px 0}h1{font-size:19px;margin:0}h2{font-size:17px;margin:0 0 12px}small,.muted{color:#5f6a77}button,input,select{font:inherit}button{border:1px solid #cfd5da;background:white;padding:11px 13px;color:#182231;cursor:pointer}button:disabled{opacity:.4}button.primary{background:#152d4d;border:0}input,select{padding:11px;border-radius:10px;border:1px solid #ccd1d7;width:100%;background:white}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.four{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}.kpi{background:#f5f7f8;border-radius:12px;text-align:center}.kpi strong{display:block}.tap{border:0;color:white;font-weight:800;display:flex;flex-direction:column;justify-content:center;align-items:center}.grape{background:#319261}.cherry{background:#d56588}.bb{background:#d94343}.rb{background:#3079ba}.tabs{background:#fff;border-top:1px solid #ddd;padding-bottom:env(safe-area-inset-bottom)}.tabs button{flex:1}.tabs .active{border-top:3px solid #166441;font-weight:bold}.warning{background:#fff4df;padding:12px;border-radius:11px}.danger{background:#fff0ee;padding:12px;border-radius:11px}.tag{border-radius:99px;background:#eef1f4;padding:4px 9px;font-size:12px}.hidden{display:none!important}.event{padding:9px 0;border-bottom:1px solid #eef0f3;display:flex;justify-content:space-between;gap:10px}.event:last-child{border:0}.event button{padding:5px 9px;font-size:12px}.sp{margin-top:10px}label{font-size:13px;display:block;margin-bottom:5px;font-weight:600}.field{margin-bottom:12px}fieldset{border:0;padding:0;margin:0}.hint{font-size:12px}#alerts>div{margin-top:9px}.grow{flex:1}details summary{cursor:pointer;font-weight:650}pre{overflow:auto;font-size:12px} @media(min-width:620px){.grid{grid-template-columns:repeat(4,1fr)}}
 
 /* Theme v3: saturated action surfaces, dark baseline; light mode preserves identity colors. */
@@ -1837,7 +1837,7 @@ module.exports={inspectInput,classifyBatchSnapshot,classifyBatchIndexedDB,batchP
 return module.exports;})();
 return modules.batch;})();</script>
 <script src="./interval-analysis.js"></script><script src="./emergency-recovery.js"></script><script src="./safety-test.js"></script><script src="./guess-engine.js"></script><script src="./graph-engine.js"></script><script src="./finance-engine.js"></script><script src="./card-engine.js"></script><script src="./audit-engine.js"></script><script src="./preseat-engine.js"></script><script>
-(()=>{'use strict';const themeSaved=(()=>{try{return localStorage.getItem('juglog_stage11_isolated_20261107_theme')||'auto'}catch{return 'auto'}})();document.documentElement.dataset.theme=['auto','light','dark'].includes(themeSaved)?themeSaved:'auto';const $=id=>document.getElementById(id),UID=()=>crypto.randomUUID(), DB='juglog_stage11_isolated_20261107_db',clientId=UID();let leaseReason='入力権限を確認しています',leaseWaitSeconds=null;let db=null,active=(()=>{try{return localStorage.getItem('juglog_stage11_isolated_20261107_active_session')||null}catch{return null}})(),writer=false,epoch=null,leaseChecking=false,leaseTask=null,busy=false,pending=[],view=[],project=null,historyExpanded=false,currentTab='play',validatedImport=null,guessScope='personal';
+(()=>{'use strict';const themeSaved=(()=>{try{return localStorage.getItem('juglog_stage19_test_20261126_theme')||'auto'}catch{return 'auto'}})();document.documentElement.dataset.theme=['auto','light','dark'].includes(themeSaved)?themeSaved:'auto';const $=id=>document.getElementById(id),UID=()=>crypto.randomUUID(), DB='juglog_stage19_test_20261126_db',clientId=UID();let leaseReason='入力権限を確認しています',leaseWaitSeconds=null;let db=null,active=(()=>{try{return localStorage.getItem('juglog_stage19_test_20261126_active_session')||null}catch{return null}})(),writer=false,epoch=null,leaseChecking=false,leaseTask=null,busy=false,pending=[],view=[],project=null,historyExpanded=false,currentTab='play',validatedImport=null,guessScope='personal';
 function txPromise(t){return new Promise((res,rej)=>{t.oncomplete=()=>res();t.onerror=()=>rej(t.error);t.onabort=()=>rej(t.error||new Error('transaction aborted'))})}function req(r){return new Promise((res,rej)=>{r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}function openDb(){return new Promise((res,rej)=>{const r=indexedDB.open(DB,2);r.onupgradeneeded=()=>{const d=r.result;if(!d.objectStoreNames.contains('events')){const es=d.createObjectStore('events',{keyPath:'eventId'});es.createIndex('commitSequence','commitSequence',{unique:true});es.createIndex('operationId','operationId',{unique:false});}else{const es=r.transaction.objectStore('events');if(!es.indexNames.contains('operationId'))es.createIndex('operationId','operationId',{unique:false})}if(!d.objectStoreNames.contains('metadata'))d.createObjectStore('metadata',{keyPath:'key'});};r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}const getMeta=async key=>{const t=db.transaction('metadata','readonly');return(await req(t.objectStore('metadata').get(key)))?.value};async function putMeta(key,value){const t=db.transaction('metadata','readwrite');t.objectStore('metadata').put({key,value});await txPromise(t)}async function allEvents(){const t=db.transaction('events','readonly');const a=await req(t.objectStore('events').getAll());return a.sort((x,y)=>x.commitSequence-y.commitSequence)}
 async function claim(force=false){const t=db.transaction('metadata','readwrite'),s=t.objectStore('metadata'),prev=(await req(s.get('lease')))?.value,now=Date.now(),alive=prev&&prev.expiresAt>now&&prev.ownerId!==clientId;if(alive&&!force){await txPromise(t);writer=false;epoch=null;leaseReason='別画面に入力権限があります';leaseWaitSeconds=Math.max(1,Math.ceil((prev.expiresAt-now)/1000));return false}if(alive&&force){t.abort();throw Error('別画面の入力権限が有効です')}epoch=prev?.ownerId===clientId?prev.epoch:(prev?.epoch||0)+1;s.put({key:'lease',value:{ownerId:clientId,epoch,expiresAt:now+12000,updatedAt:now}});await txPromise(t);writer=true;leaseReason='';leaseWaitSeconds=null;return true}
 async function heartbeat(){if(!db||!writer||document.hidden)return;try{const t=db.transaction('metadata','readwrite'),s=t.objectStore('metadata'),p=(await req(s.get('lease')))?.value,now=Date.now();if(!p||p.ownerId!==clientId||p.epoch!==epoch||p.expiresAt<=now){t.abort();writer=false;epoch=null;leaseReason=!p?'入力権限記録が見つかりません':p.ownerId!==clientId?'別画面に入力権限が移りました':p.epoch!==epoch?'入力権限の世代が変わりました':'入力権限の期限が切れました';leaseWaitSeconds=p?.expiresAt>now?Math.ceil((p.expiresAt-now)/1000):null;render();return}p.expiresAt=now+12000;p.updatedAt=now;s.put({key:'lease',value:p});await txPromise(t)}catch{writer=false;epoch=null;leaseReason='入力権限の更新に失敗しました。保存状態を確認してください';leaseWaitSeconds=null;render()}}
@@ -2003,6 +2003,8 @@ async function append(items,operationId=UID(),prepared=null){if(!writer)throw Er
  validateSessionLifecycle(committed,all,persistedSessions);
  validateSessionRecordWrites(committed,all,persistedSessions);
  validateStage14Writes(committed,all,persistedSessions);
+ validateStage19Award(committed,all,persistedSessions);
+ validateStage19BonusAction(committed,all,persistedSessions);
  all.forEach((e,i)=>store.add({...e,commitSequence:last+i+1}));m.put({key:'sequence',value:last+all.length});await txPromise(t);return all}catch(e){if(t&&t.readyState==='active')t.abort();throw e}}
 function correctedEvents(ev){let cancelled=new Set();for(const e of ev){if(e.type==='EVENT_CANCELLED')cancelled.add(e.targetEventId);if(e.type==='EVENT_RESTORED')cancelled.delete(e.targetEventId)}return ev.filter(e=>!cancelled.has(e.eventId)&&!['EVENT_CANCELLED','EVENT_RESTORED'].includes(e.type))}
 function replay(ev){const all=correctedEvents(ev);let sessions=new Map();const bonusIndexes=new Map();for(const e of all){let s=sessions.get(e.sessionId);if(e.type==='SESSION_CREATED'){s={id:e.sessionId,store:e.store,machine:e.machine,number:e.number,date:e.date,measuredG:0,hasUnmeasuredG:false,status:'ACTIVE',segment:e.segmentId,segments:1,g:0,current:null,hallTotalLive:null,grape:0,cherry:0,bonuses:[],snapshots:[],nonOverlapCherry:undefined,nonOverlapCherryVerified:false};sessions.set(e.sessionId,s);bonusIndexes.set(e.sessionId,new Map());continue}if(!s)continue;switch(e.type){case 'SEGMENT_STARTED':s.segment=e.segmentId;s.segments++;break;case 'CURRENT_G_BASELINE':s.current=e.currentG;break;case 'GAMES_RECORDED':s.g+=e.delta;if(s.hallTotalLive!==null)s.hallTotalLive+=e.delta;if(e.measuredBoth===true)s.measuredG+=e.delta;else s.hasUnmeasuredG=true;if(s.current!==null)s.current+=e.delta;break;case 'GRAPE_COUNTED':s.grape++;break;case 'CHERRY_COUNTED':s.cherry++;break;case 'NON_OVERLAP_CHERRY_VERIFIED':break;case 'HALL_SNAPSHOT_RECORDED':s.snapshots.push(e);if(Number.isSafeInteger(e.totalG)&&e.totalG>=0){const zeroStart=e.totalG===0&&e.currentG===0&&e.bb===0&&e.rb===0;s.hallTotalLive=zeroStart?s.g:e.totalG;}if(e.currentG!==null)s.current=e.currentG;break;case 'BONUS_AWARDED':{const b={...e,completed:false};s.bonuses.push(b);const idx=bonusIndexes.get(e.sessionId);if(!idx.has(e.bonusId))idx.set(e.bonusId,b);break}case 'BONUS_REVIEW_CONFIRMED':{const b=bonusIndexes.get(e.sessionId)?.get(e.bonusId);if(b&&b.pendingReview)b.pendingReview=false;break}case 'BONUS_COMPLETED':{let b=bonusIndexes.get(e.sessionId)?.get(e.bonusId);if(b)b.completed=true;s.current=0;break}case 'SESSION_PAUSED':s.status='PAUSED';break;case 'SESSION_RESUMED':s.status='ACTIVE';break;case 'SESSION_CLOSED_PENDING':s.status='CLOSED_PENDING';break;case 'SESSION_CLOSED_CONFIRMED':s.status='CLOSED_CONFIRMED';break;}}
@@ -2125,8 +2127,8 @@ async function retryQueue(){
  }finally{busy=false;render()}
 }
 // P5 experimental checkpoints: independent metadata entries, never appended to events.
-const checkpointKey='juglog_stage11_isolated_20261107_checkpoint_preview';
-const checkpointPendingKey='juglog_stage11_isolated_20261107_checkpoint_pending';
+const checkpointKey='juglog_stage19_test_20261126_checkpoint_preview';
+const checkpointPendingKey='juglog_stage19_test_20261126_checkpoint_pending';
 // Fail closed if storage is unavailable: do not create an untraceable checkpoint.
 function readCheckpointPending(){
  try{const raw=localStorage.getItem(checkpointPendingKey);if(!raw)return null;const p=JSON.parse(raw);if(!p||p.version!==1||!p.snapshot||typeof p.snapshot.id!=='string'||!p.snapshot.id)throw Error('invalid');return p}
@@ -2231,7 +2233,7 @@ async function saveCheckpoint(){
 $('checkpointAddBtn').onclick=saveCheckpoint;
 async function refresh(){view=await allEvents();project=replay(view);if(!active||!project.has(active))active=[...project.keys()].at(-1)||null;await loadCheckpoints();restoreV45Ui();render()}
 /* v45 UI-only preferences. Never write preference changes into IndexedDB event records. */
-const v45UiKey='juglog_stage11_isolated_20261107_ui_preferences';
+const v45UiKey='juglog_stage19_test_20261126_ui_preferences';
 let v45Ui={};try{const saved=JSON.parse(localStorage.getItem(v45UiKey)||'{}');if(saved&&typeof saved==='object'&&!Array.isArray(saved))v45Ui=saved}catch{}
 function storeV45Ui(){try{localStorage.setItem(v45UiKey,JSON.stringify(v45Ui))}catch{/* UI preferences are noncritical */}}
 function selectUiValue(id,value,choices,fallback){$(id).value=choices.includes(value)?value:fallback}
@@ -2247,8 +2249,8 @@ function recordV45Inference(){
  v45Ui.sessions[active]={scope:$('guessScope').value,mode:$('guessMode').value};storeV45Ui();
 }
 selectUiValue('graphMode',v45Ui.graphMode,['cumulative','timeline'],'cumulative');
-function restoreNativeMeasured(){try{$('measuredBoth').checked=!!active&&localStorage.getItem('juglog_stage11_isolated_20261107_measure_session_v1:'+active)==='true'}catch{$('measuredBoth').checked=false;}}
-$('measuredBoth').addEventListener('change',()=>{if(active)try{localStorage.setItem('juglog_stage11_isolated_20261107_measure_session_v1:'+active,String($('measuredBoth').checked))}catch{}});
+function restoreNativeMeasured(){try{$('measuredBoth').checked=!!active&&localStorage.getItem('juglog_stage19_test_20261126_measure_session_v1:'+active)==='true'}catch{$('measuredBoth').checked=false;}}
+$('measuredBoth').addEventListener('change',()=>{if(active)try{localStorage.setItem('juglog_stage19_test_20261126_measure_session_v1:'+active,String($('measuredBoth').checked))}catch{}});
 
 function nice(e){let p={SESSION_CREATED:`新規実戦 ${e.number?e.number+'番台':'台番号未登録'}`,SEGMENT_STARTED:'遊技区間開始',CURRENT_G_BASELINE:`現在G初期値 ${e.currentG}`,GAMES_RECORDED:`本人G +${e.delta}${e.measuredBoth?'（小役実測）':''}`,GRAPE_COUNTED:'ぶどう +1',CHERRY_COUNTED:'チェリー +1',NON_OVERLAP_CHERRY_VERIFIED:'非重複チェリー確定回数の登録',HALL_SNAPSHOT_RECORDED:'ホール観測値を記録',BONUS_AWARDED:`${e.bonusType}当選（${e.trigger}）${e.pendingReview?'・保留':''}`,BONUS_REVIEW_CONFIRMED:'保留ボーナスの確認確定',BONUS_COMPLETED:'ボーナス消化完了',SESSION_PAUSED:'実戦中断',SESSION_RESUMED:'実戦再開',SESSION_CLOSED_PENDING:'未確定付き終了',SESSION_CLOSED_CONFIRMED:'実戦終了確定',EVENT_CANCELLED:'操作の取消',EVENT_RESTORED:'取消の復元',CASH_INVESTED:'現金投資',CASH_RECOVERED:'現金回収',MEDALS_INSERTED:'投入枚数（記録分）',MEDALS_PAID_OUT:'獲得枚数（記録分）',MEDALS_BALANCE_OBSERVED:'持ちメダル実測',NET_MEDALS_OBSERVED:'差枚実測',CARD_DEPOSIT:'貯メダル入庫',CARD_WITHDRAWAL:'貯メダル引出',CARD_BALANCE_OBSERVED:'貯メダル残高実測',PRESEAT_GRAPH_OBSERVED:'着席前グラフ・ぶどう参考逆算の入力条件'};return p[e.type]||e.type}
 function renderGuess(s){
@@ -2647,7 +2649,7 @@ function stage17RenderHeavyForCurrentTab(s){
  }
  stage17RenderHeavy(s);
 }
-function render(){if(project){try{if(active&&project.has(active))localStorage.setItem('juglog_stage11_isolated_20261107_active_session',active);else localStorage.removeItem('juglog_stage11_isolated_20261107_active_session') }catch{}}window.dispatchEvent(new CustomEvent('juglog:p31:state-v1',{detail:Object.freeze({writer:!!writer,busy:!!busy,pending:pending.length,active:!!active,visible:!document.hidden})}));syncEmergencyExport();const s=project?.get(active);$('activeSummary').textContent=s?`${s.store}｜${s.machine}｜${s.number}番台 ｜ ${s.status}`:'実戦未選択';$('noSession').classList.toggle('hidden',!!s);$('playing').classList.toggle('hidden',!s);$('saveStatus').textContent=pending.length?`未保存 ${pending.length}`:writer?'保存済み':'閲覧専用';if(!writer){$('saveStatus').textContent='閲覧専用：'+leaseReason;}$('saveStatus').title=writer?'この画面で入力可能です。':`${leaseReason}。自動的に再確認します。`;$('saveStatus').setAttribute('aria-label',writer?'保存済み・入力可能':`閲覧専用：${leaseReason}`);if(s){$('totalG').textContent=(s.hallTotalLive??s.g).toLocaleString();$('personalG').textContent=s.g.toLocaleString();$('currentG').textContent=s.current??'—';$('grapeN').textContent=s.grape;$('cherryN').textContent=s.cherry;const rateReady=s.g>0&&!s.hasUnmeasuredG&&s.measuredG===s.g;$('grapeRate').textContent=rateReady&&s.grape>0?'1/'+(s.measuredG/s.grape).toFixed(2):'—';$('cherryRate').textContent=rateReady&&s.cherry>0?'1/'+(s.measuredG/s.cherry).toFixed(2):'—';$('bbN').textContent=s.bonuses.filter(b=>b.bonusType==='BB'&&!b.pendingReview).length;$('rbN').textContent=s.bonuses.filter(b=>b.bonusType==='RB'&&!b.pendingReview).length;$('pendingN').textContent=s.bonuses.filter(b=>b.pendingReview).length;$('uncompletedN').textContent=s.bonuses.filter(b=>!b.completed).length;const hall=s.snapshots.at(-1),hallOK=hall&&Number.isSafeInteger(hall.totalG)&&hall.totalG>0&&Number.isSafeInteger(hall.bb)&&hall.bb>=0&&Number.isSafeInteger(hall.rb)&&hall.rb>=0&&hall.bb+hall.rb<=hall.totalG;const hr=(v)=>hallOK&&v>0?'1/'+(hall.totalG/v).toFixed(1):'—';$('hallBBRate').textContent=hr(hall?.bb);$('hallRBRate').textContent=hr(hall?.rb);$('hallCombinedRate').textContent=hr((hall?.bb??0)+(hall?.rb??0));$('hallProbBase').textContent=hallOK?hall.totalG.toLocaleString()+'G基準':'同一観測のG・BB・RBが必要';const snap=s.snapshots.at(-1);$('hallView').textContent=snap?`最終観測：累計G ${snap.totalG??'不明'}／現在G ${snap.currentG??'不明'}／BB ${snap.bb??'不明'}／RB ${snap.rb??'不明'}`:'ホール観測値は未入力';$('bonuses').replaceChildren();const bonusSessionEvents=view.filter(e=>e.sessionId===active),bonusEffectiveEvents=correctedEvents(bonusSessionEvents),bonusLastEffective=bonusEffectiveEvents.at(-1),bonusCompletionById=new Map(bonusEffectiveEvents.filter(e=>e.type==='BONUS_COMPLETED').map(e=>[e.bonusId,e])),firstPendingBonus=s.bonuses.find(x=>x.pendingReview),hasBlockingBonus=s.bonuses.some(x=>!x.completed&&!x.pendingReview);const bonusFragment=document.createDocumentFragment();s.bonuses.slice().reverse().forEach(b=>{const line=document.createElement('div');line.className='event';const label=document.createElement('span');label.textContent=`${b.bonusType}｜${b.triggerVerification==='confirmed'?b.trigger+'（確認済み）':b.trigger==='不明'?'契機不明':b.trigger+'（旧版・未検証）'}｜${b.pendingReview?'保留':b.completed?'消化済み':'未消化'}`;line.append(label);if(b.pendingReview){
+function render(){if(project){try{if(active&&project.has(active))localStorage.setItem('juglog_stage19_test_20261126_active_session',active);else localStorage.removeItem('juglog_stage19_test_20261126_active_session') }catch{}}window.dispatchEvent(new CustomEvent('juglog:p31:state-v1',{detail:Object.freeze({writer:!!writer,busy:!!busy,pending:pending.length,active:!!active,visible:!document.hidden})}));syncEmergencyExport();const s=project?.get(active);$('activeSummary').textContent=s?`${s.store}｜${s.machine}｜${s.number}番台 ｜ ${s.status}`:'実戦未選択';$('noSession').classList.toggle('hidden',!!s);$('playing').classList.toggle('hidden',!s);$('saveStatus').textContent=pending.length?`未保存 ${pending.length}`:writer?'保存済み':'閲覧専用';if(!writer){$('saveStatus').textContent='閲覧専用：'+leaseReason;}$('saveStatus').title=writer?'この画面で入力可能です。':`${leaseReason}。自動的に再確認します。`;$('saveStatus').setAttribute('aria-label',writer?'保存済み・入力可能':`閲覧専用：${leaseReason}`);if(s){$('totalG').textContent=(s.hallTotalLive??s.g).toLocaleString();$('personalG').textContent=s.g.toLocaleString();$('currentG').textContent=s.current??'—';$('grapeN').textContent=s.grape;$('cherryN').textContent=s.cherry;const rateReady=s.g>0&&!s.hasUnmeasuredG&&s.measuredG===s.g;$('grapeRate').textContent=rateReady&&s.grape>0?'1/'+(s.measuredG/s.grape).toFixed(2):'—';$('cherryRate').textContent=rateReady&&s.cherry>0?'1/'+(s.measuredG/s.cherry).toFixed(2):'—';$('bbN').textContent=s.bonuses.filter(b=>b.bonusType==='BB'&&!b.pendingReview).length;$('rbN').textContent=s.bonuses.filter(b=>b.bonusType==='RB'&&!b.pendingReview).length;$('pendingN').textContent=s.bonuses.filter(b=>b.pendingReview).length;$('uncompletedN').textContent=s.bonuses.filter(b=>!b.completed).length;const hall=s.snapshots.at(-1),hallOK=hall&&Number.isSafeInteger(hall.totalG)&&hall.totalG>0&&Number.isSafeInteger(hall.bb)&&hall.bb>=0&&Number.isSafeInteger(hall.rb)&&hall.rb>=0&&hall.bb+hall.rb<=hall.totalG;const hr=(v)=>hallOK&&v>0?'1/'+(hall.totalG/v).toFixed(1):'—';$('hallBBRate').textContent=hr(hall?.bb);$('hallRBRate').textContent=hr(hall?.rb);$('hallCombinedRate').textContent=hr((hall?.bb??0)+(hall?.rb??0));$('hallProbBase').textContent=hallOK?hall.totalG.toLocaleString()+'G基準':'同一観測のG・BB・RBが必要';const snap=s.snapshots.at(-1);$('hallView').textContent=snap?`最終観測：累計G ${snap.totalG??'不明'}／現在G ${snap.currentG??'不明'}／BB ${snap.bb??'不明'}／RB ${snap.rb??'不明'}`:'ホール観測値は未入力';$('bonuses').replaceChildren();const bonusSessionEvents=view.filter(e=>e.sessionId===active),bonusEffectiveEvents=correctedEvents(bonusSessionEvents),bonusLastEffective=bonusEffectiveEvents.at(-1),bonusCompletionById=new Map(bonusEffectiveEvents.filter(e=>e.type==='BONUS_COMPLETED').map(e=>[e.bonusId,e])),firstPendingBonus=s.bonuses.find(x=>x.pendingReview),hasBlockingBonus=s.bonuses.some(x=>!x.completed&&!x.pendingReview);const bonusFragment=document.createDocumentFragment();s.bonuses.slice().reverse().forEach(b=>{const line=document.createElement('div');line.className='event';const label=document.createElement('span');label.textContent=`${b.bonusType}｜${b.triggerVerification==='confirmed'?b.trigger+'（確認済み）':b.trigger==='不明'?'契機不明':b.trigger+'（旧版・未検証）'}｜${b.pendingReview?'保留':b.completed?'消化済み':'未消化'}`;line.append(label);if(b.pendingReview){
  const confirmBtn=document.createElement('button');confirmBtn.textContent='保留を確認';
  const firstPending=firstPendingBonus;
  const blocking=hasBlockingBonus;
@@ -2694,28 +2696,28 @@ const v43Cases=[
  ['v41-04','終了済み実戦の再開前に確認ダイアログ'],
  ['v41-05','ライトテーマの設定推測確率が判読可能']
 ];
-const v43CheckStorage='juglog_stage11_isolated_20261107_checks';let v43Checked={};try{v43Checked=JSON.parse(localStorage.getItem(v43CheckStorage)||'{}')}catch{};
+const v43CheckStorage='juglog_stage19_test_20261126_checks';let v43Checked={};try{v43Checked=JSON.parse(localStorage.getItem(v43CheckStorage)||'{}')}catch{};
 function renderV43Checks(){const container=$('v43TestItems');container.replaceChildren();for(const [id,label] of v43Cases){const row=document.createElement('label');row.className='measure-check';row.style.cssText='padding:8px 0;border-bottom:1px solid var(--line);cursor:pointer;font-weight:400';const input=document.createElement('input');input.type='checkbox';input.checked=!!v43Checked[id];input.dataset.caseId=id;input.onchange=()=>{v43Checked[id]=input.checked;try{localStorage.setItem(v43CheckStorage,JSON.stringify(v43Checked))}catch{};updateV43CheckSummary()};const txt=document.createElement('span');txt.textContent=`${id}｜${label}`;row.append(input,txt);container.append(row)}updateV43CheckSummary()}
 function updateV43CheckSummary(){const n=v43Cases.filter(([id])=>v43Checked[id]).length;$('v43TestSummary').textContent=`確認済み ${n} / ${v43Cases.length} 項目。未確認は合格扱いにしません。`}
 $('v43CopyReport').onclick=async()=>{const lines=['ジャグログ Phase 3 開発 v43 統合検証｜手動チェック結果',`作成日時：${new Date().toLocaleString('ja-JP')}`,...v43Cases.map(([id,label])=>`${v43Checked[id]?'[確認]':'[未確認]'} ${id} ${label}`),'注意：チェックは利用者による申告であり、自動試験の合格を意味しません。'];const val=lines.join('\n');try{await navigator.clipboard.writeText(val);alert('検証結果をコピーしました。')}catch{prompt('検証結果をコピーしてください',val)}};
 $('v43ResetChecks').onclick=()=>{if(!confirm('検証チェックのみリセットします。実戦データは変更しません。よろしいですか？'))return;v43Checked={};try{localStorage.removeItem(v43CheckStorage)}catch{};renderV43Checks()};renderV43Checks();
 /* P13 noncritical UI preference only: no IndexedDB or event-store writes. */
-const minusGuardKey='juglog_stage11_isolated_20261107_minus_guard';
+const minusGuardKey='juglog_stage19_test_20261126_minus_guard';
 function setMinusGuard(enabled){document.documentElement.dataset.minusGuard=enabled?'on':'off';$('minusGuard').checked=enabled;}
 let minusGuardSaved=false;try{minusGuardSaved=localStorage.getItem(minusGuardKey)==='on'}catch{}
 setMinusGuard(minusGuardSaved);
 $('minusGuard').onchange=e=>{const enabled=!!e.target.checked;setMinusGuard(enabled);try{localStorage.setItem(minusGuardKey,enabled?'on':'off')}catch{}};
-$('themeMode').value=document.documentElement.dataset.theme;$('themeMode').onchange=e=>{const mode=e.target.value;document.documentElement.dataset.theme=mode;try{localStorage.setItem('juglog_stage11_isolated_20261107_theme',mode)}catch{}};
+$('themeMode').value=document.documentElement.dataset.theme;$('themeMode').onchange=e=>{const mode=e.target.value;document.documentElement.dataset.theme=mode;try{localStorage.setItem('juglog_stage19_test_20261126_theme',mode)}catch{}};
 function canChangeSessionContext(){if(busy||pending.length){showAlert('保存処理中または未保存の操作があります。保存を再試行するか緊急退避してから台切替・新規実戦作成を行ってください。','danger');return false}return true}
-$('newBtn').onclick=()=>{if(!canChangeSessionContext())return;modal('実戦を作成','<div class="field"><label>日付</label><input id="dateInput" type="date" value="'+new Date().toLocaleDateString('sv-SE')+'"></div><div class="field"><label>店舗</label><input id="storeInput" placeholder="店舗名"></div><div class="field"><label>機種</label><select id="machineSelect"><option value="マイジャグラーV">マイジャグラーV</option><option value="マイジャグラーVI">マイジャグラーVI</option><option value="ネオアイムジャグラーEX">ネオアイムジャグラーEX</option><option value="ファンキージャグラー2">ファンキージャグラー2</option><option value="ゴーゴージャグラー3">ゴーゴージャグラー3</option><option value="ミスタージャグラー">ミスタージャグラー</option><option value="ウルトラミラクルジャグラー">ウルトラミラクルジャグラー</option><option value="ジャグラーガールズSS">ジャグラーガールズSS</option><option value="ハッピージャグラーVⅢ">ハッピージャグラーVⅢ</option><option value="other">その他（手入力）</option></select><input id="machineInput" maxlength="120" placeholder="機種名を入力" hidden></div><div class="field"><label>台番号（任意）</label><input id="numberInput" placeholder="未入力でも可" inputmode="numeric"></div><div class="field"><label><input id="createMeasuredBoth" type="checkbox">この実戦では追加した全Gの小役を実測する（途中変更可）</label></div>',async()=>{const store=$('storeInput').value.trim(),machine=($('machineSelect').value==='other'?$('machineInput').value:$('machineSelect').value).trim(),number=$('numberInput').value.trim(),date=$('dateInput').value;if(!store||!machine||!date){alert('日付・店舗・機種を入力してください');return false}const sessionId=UID(),segmentId=UID();const saved=await run([{type:'SESSION_CREATED',sessionId,segmentId,store,machine,number,date}]);if(!saved)return false;active=sessionId;try{localStorage.setItem('juglog_stage11_isolated_20261107_measure_session_v1:'+sessionId,String($('createMeasuredBoth').checked))}catch{}$('measuredBoth').checked=$('createMeasuredBoth').checked;restoreV45Ui();render()})};
+$('newBtn').onclick=()=>{if(!canChangeSessionContext())return;modal('実戦を作成','<div class="field"><label>日付</label><input id="dateInput" type="date" value="'+new Date().toLocaleDateString('sv-SE')+'"></div><div class="field"><label>店舗</label><input id="storeInput" placeholder="店舗名"></div><div class="field"><label>機種</label><select id="machineSelect"><option value="マイジャグラーV">マイジャグラーV</option><option value="マイジャグラーVI">マイジャグラーVI</option><option value="ネオアイムジャグラーEX">ネオアイムジャグラーEX</option><option value="ファンキージャグラー2">ファンキージャグラー2</option><option value="ゴーゴージャグラー3">ゴーゴージャグラー3</option><option value="ミスタージャグラー">ミスタージャグラー</option><option value="ウルトラミラクルジャグラー">ウルトラミラクルジャグラー</option><option value="ジャグラーガールズSS">ジャグラーガールズSS</option><option value="ハッピージャグラーVⅢ">ハッピージャグラーVⅢ</option><option value="other">その他（手入力）</option></select><input id="machineInput" maxlength="120" placeholder="機種名を入力" hidden></div><div class="field"><label>台番号（任意）</label><input id="numberInput" placeholder="未入力でも可" inputmode="numeric"></div><div class="field"><label><input id="createMeasuredBoth" type="checkbox">この実戦では追加した全Gの小役を実測する（途中変更可）</label></div>',async()=>{const store=$('storeInput').value.trim(),machine=($('machineSelect').value==='other'?$('machineInput').value:$('machineSelect').value).trim(),number=$('numberInput').value.trim(),date=$('dateInput').value;if(!store||!machine||!date){alert('日付・店舗・機種を入力してください');return false}const sessionId=UID(),segmentId=UID();const saved=await run([{type:'SESSION_CREATED',sessionId,segmentId,store,machine,number,date}]);if(!saved)return false;active=sessionId;try{localStorage.setItem('juglog_stage19_test_20261126_measure_session_v1:'+sessionId,String($('createMeasuredBoth').checked))}catch{}$('measuredBoth').checked=$('createMeasuredBoth').checked;restoreV45Ui();render()})};
 $('sessionsBtn').onclick=()=>{if(!canChangeSessionContext())return;let html='<div style="max-height:55vh;overflow:auto">';for(const s of project?.values()||[])html+=`<p><button class="selectSession" data-id="${s.id}">${escapeHtml(s.store)}｜${escapeHtml(s.number)}番台（${s.status}）</button></p>`;html+='</div><p><button id="newSessionFromList">＋ 新規実戦を作成</button></p>';modal('台一覧',html,()=>true);$('modalOk').textContent='閉じる';$('modal').querySelector('button[value="cancel"]').style.display='none';$('newSessionFromList').onclick=()=>{$('modal').close();$('newBtn').click()};document.querySelectorAll('.selectSession').forEach(b=>b.onclick=()=>{if(!canChangeSessionContext())return;active=b.dataset.id;restoreV45Ui();$('modal').close();switchTab('play');render()})};function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 
 // Phase 8 isolated accepted-operation journal, stored before P31 append.
 // This does not write to the event store and is NOT a guarantee of commit.
-const P8_JOURNAL_KEY='juglog_stage11_isolated_20261107_attempt_journal';
+const P8_JOURNAL_KEY='juglog_stage19_test_20261126_attempt_journal';
 // A durable, identity-only reconciliation receipt survives Safari reload.
 // It never authorizes a replay/write; the DB and effective view must match.
-const P8_RECEIPT_KEY='juglog_stage11_isolated_20261107_last_confirmed_receipt_v1';
+const P8_RECEIPT_KEY='juglog_stage19_test_20261126_last_confirmed_receipt_v1';
 function p8ReceiptRead(){
  try{const raw=localStorage.getItem(P8_RECEIPT_KEY);if(!raw)return null;
   const row=JSON.parse(raw);return p8ValidRecoveryPayload(row)?row:{invalid:true};
@@ -3146,6 +3148,71 @@ function validateStage14Writes(committed,incoming,persistedSessionsSnapshot){
   }else if(e.delta<1)throw Error('直接指定の増分が不正です');
  }
 }
+// Stage19: construct the same current-G events as Stage14 without writing.
+function stage19GameEvents(s,target,measuredBoth,history,sessionId){
+    const current=s.current;
+    let events;
+    if(current===null){
+      events=[{type:'CURRENT_G_BASELINE',currentG:target,segmentId:s.segment}];
+    }else if(target===current){
+      return {events:[]};
+    }else if(target>current){
+      events=[{type:'GAMES_RECORDED',delta:target-current,measuredBoth,segmentId:s.segment,stage14ExpectedCurrent:current}];
+    }else{
+      // Fruit counts following the most recent G entry may remain if the
+      // adjusted measurement still accounts for every counted small role.
+      // A bonus, hall observation, or session change remains a hard boundary.
+      const adjustment=current-target;
+      const selected=stage14CorrectableGameTail(correctedEvents(history.filter(e=>e.sessionId===sessionId)),sessionId,adjustment);
+      if(!selected.game)return {reason:selected.reason};
+      const last=selected.game;
+      if(last.delta===adjustment){
+        events=[{type:'EVENT_CANCELLED',targetEventId:last.eventId,stage14CurrentExpected:current,
+          stage14CorrectionAmount:adjustment}];
+      }else{
+        events=[{type:'EVENT_CANCELLED',targetEventId:last.eventId,stage14CurrentExpected:current,
+          stage14CorrectionAmount:adjustment},
+          {type:'GAMES_RECORDED',delta:last.delta-adjustment,measuredBoth:last.measuredBoth===true,
+            segmentId:last.segmentId,stage14ExpectedCurrent:current,stage14CorrectionOf:last.eventId,
+            stage14CorrectionAmount:adjustment}];
+      }
+    }
+    return {events};
+}
+// Validate the complete stage19 operation under the authoritative write transaction.
+function validateStage19Award(committed,incoming,persistedSessions){
+ const marked=incoming.filter(e=>Object.prototype.hasOwnProperty.call(e,'stage19ExpectedCurrent'));
+ if(!marked.length)return;
+ const a=marked[0],state=persistedSessions.get(a.sessionId);
+ if(marked.length!==1||a.type!=='BONUS_AWARDED'||incoming.at(-1)!==a||!state||state.status!=='ACTIVE'||
+    state.current!==a.stage19ExpectedCurrent||state.segment!==a.segmentId||state.bonuses.some(b=>!b.completed||b.pendingReview)||
+    !['BB','RB'].includes(a.bonusType)||!['不明','単独','チェリー重複'].includes(a.trigger)||a.pendingReview!==false||
+    !Number.isSafeInteger(a.awardedAtCurrentG)||a.awardedAtCurrentG<0||a.awardedAtCurrentG>9999999||
+    incoming.some(e=>e.sessionId!==a.sessionId))throw Error('当選記録の条件が変更されました');
+ const prefix=incoming.slice(0,-1);
+ if(prefix.length>2||prefix.some(e=>!['CURRENT_G_BASELINE','GAMES_RECORDED','EVENT_CANCELLED'].includes(e.type)))throw Error('当選操作の構成が不正です');
+ const planned=stage19GameEvents(state,a.awardedAtCurrentG, prefix.find(e=>e.type==='GAMES_RECORDED')?.measuredBoth===true,committed,a.sessionId);
+ if(!planned.events||planned.events.length!==prefix.length||planned.events.some((e,i)=>Object.keys(e).some(k=>prefix[i][k]!==e[k])))throw Error('当選時のゲーム数修正が不正です');
+ const last=committed.at(-1)?.commitSequence??0;
+ const after=replay(committed.concat(incoming.map((e,i)=>({...e,commitSequence:last+i+1})))).get(a.sessionId);
+ if(!after||after.current!==a.awardedAtCurrentG||after.bonuses.length!==state.bonuses.length+1)throw Error('当選後の記録整合性を確認できません');
+}
+// Stage19: validate the exact bonus action against persisted state in the same transaction.
+function validateStage19BonusAction(committed,incoming,persistedSessions){
+ const marked=incoming.filter(e=>Object.prototype.hasOwnProperty.call(e,'stage19BonusAction'));
+ if(!marked.length)return;
+ const e=marked[0],state=persistedSessions.get(e.sessionId),action=e.stage19BonusAction;
+ const bonus=state?.bonuses.slice().reverse().find(b=>!b.completed&&!b.pendingReview);
+ if(incoming.length!==1||marked.length!==1||!state||state.status!=='ACTIVE'||!bonus||bonus.bonusId!==e.stage19BonusId||
+ state.current!==e.stage19ActionCurrent||state.segment!==e.stage19ActionSegment)throw Error('対象の当選状態が変更されました');
+ if(action==='complete'){
+  if(e.type!=='BONUS_COMPLETED'||e.bonusId!==bonus.bonusId||e.completedSegmentId!==state.segment)throw Error('消化完了対象が不正です');
+ }else if(action==='cancel'){
+  const last=correctedEvents(committed.filter(x=>x.sessionId===e.sessionId)).at(-1);
+  if(e.type!=='EVENT_CANCELLED'||last?.type!=='BONUS_AWARDED'||last.bonusId!==bonus.bonusId||last.eventId!==e.targetEventId||
+  committed.some(x=>x.sessionId===e.sessionId&&x.bonusId===bonus.bonusId&&x.type==='BONUS_REVIEW_CONFIRMED'))throw Error('取消対象が変更されました');
+ }else throw Error('当選操作が不正です');
+}
 window.__p8CountApi = Object.freeze({
   state(){return Object.freeze({ready:!!writer && !busy && pending.length===0 && !!active && !document.hidden && !p8JournalRead(), busy:!!busy, pending:pending.length, hasSession:!!active, writer:!!writer});},
   async games(delta, measuredBoth){
@@ -3202,6 +3269,21 @@ window.__p8CountApi = Object.freeze({
       return await runForD07F([{type:'BONUS_AWARDED',bonusId:UID(),bonusType:type,trigger,triggerVerification:trigger==='不明'?'unknown':'confirmed',segmentId:s.segment,pendingReview,awardedAtCurrentG:Number.isSafeInteger(s.current)?s.current:null}]);
     }catch(_e){return Object.freeze({status:'unknown'});}
   },
+  // Stage19: an explicit draft is accepted as one journalled operation.
+  async awardBonusAtGames(type,trigger,target,measuredBoth,expectedCurrent,expectedSessionId){
+    const state=project?.get(active);
+    if(!['BB','RB'].includes(type)||!['不明','単独','チェリー重複'].includes(trigger)||
+      !Number.isSafeInteger(target)||target<0||target>9999999||typeof measuredBoth!=='boolean'||
+      !state||state.status!=='ACTIVE'||active!==expectedSessionId||state.current!==expectedCurrent||
+      !writer||busy||pending.length||document.hidden||p8JournalRead()||state.bonuses.some(b=>!b.completed||b.pendingReview))
+      return Object.freeze({status:'rejected',reason:'当選時の実戦・ゲーム数・保存状態を確認してください'});
+    const planned=stage19GameEvents(state,target,measuredBoth,view,active);
+    if(!planned.events)return Object.freeze({status:'rejected',reason:planned.reason});
+    const events=[...planned.events,{type:'BONUS_AWARDED',bonusId:UID(),bonusType:type,trigger,
+      triggerVerification:trigger==='不明'?'unknown':'confirmed',segmentId:state.segment,pendingReview:false,
+      awardedAtCurrentG:target,stage19ExpectedCurrent:expectedCurrent}].map(e=>({...e,sessionId:active}));
+    try{return await runForD07F(events);}catch(_e){return Object.freeze({status:'unknown'});}
+  },
   // D07F uses this projected state; IDs never come from the caller.
   bonusActions(){
     const s=project?.get(active);
@@ -3234,6 +3316,25 @@ window.__p8CountApi = Object.freeze({
         : {type:'BONUS_REVIEW_CONFIRMED',bonusId:bonus.bonusId,segmentId:s.segment};
       return await runForD07F([ev]);
     }catch(_e){return Object.freeze({status:'unknown'});}
+  },
+  // Stage19: bind finish/cancel to the exact active bonus and session.
+  stage19BonusTarget(){
+    const state=project?.get(active);
+    const bonus=state?.bonuses.slice().reverse().find(b=>!b.completed&&!b.pendingReview);
+    if(!state||state.status!=='ACTIVE'||!bonus)return null;
+    const last=correctedEvents(view.filter(e=>e.sessionId===active)).at(-1);
+    return Object.freeze({sessionId:active,segmentId:state.segment,bonusId:bonus.bonusId,type:bonus.bonusType,current:state.current,
+      canCancel:last?.type==='BONUS_AWARDED'&&last.bonusId===bonus.bonusId&&!view.some(e=>e.sessionId===active&&e.bonusId===bonus.bonusId&&e.type==='BONUS_REVIEW_CONFIRMED')});
+  },
+  async stage19FinishOrCancel(action,expected){
+    const actual=this.stage19BonusTarget();
+    if(!['complete','cancel'].includes(action)||!expected||!actual||!this.state().ready||
+       ['sessionId','segmentId','bonusId','current'].some(k=>expected[k]!==actual[k])||
+       (action==='cancel'&&!actual.canCancel))return Object.freeze({status:'rejected',reason:'対象の当選記録または実戦状態が変わりました'});
+    const event=action==='complete'?{type:'BONUS_COMPLETED',bonusId:actual.bonusId,completedSegmentId:actual.segmentId}:
+      {type:'EVENT_CANCELLED',targetEventId:correctedEvents(view.filter(e=>e.sessionId===active)).at(-1).eventId};
+    try{return await runForD07F([{...event,sessionId:actual.sessionId,stage19BonusAction:action,stage19BonusId:actual.bonusId,stage19ActionCurrent:actual.current,stage19ActionSegment:actual.segmentId}]);}
+    catch(_e){return Object.freeze({status:'unknown'});}
   },
   // Direct D07F Undo; exactly the same eligible tail rules as the native Undo button.
   undoCandidate(){
