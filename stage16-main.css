@@ -160,7 +160,7 @@ html[data-theme=light] #p8-create-dialog input{background:#fff;color:#173b31;bor
 #panel-play .button-grid{gap:10px;}
 /* Stage18 A: three-column landscape layout; auxiliary actions stay in center. */
 @media (orientation:landscape) and (min-width:640px){
-  #panel-play{--stage18-key-height:100%;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.65fr) minmax(0,1fr);column-gap:10px;row-gap:3px;align-content:start}
+  #panel-play{--stage18-fruit-top:27px;--stage18-key-height:100%;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.65fr) minmax(0,1fr);column-gap:10px;row-gap:3px;align-content:start}
   #panel-play>.heading{grid-column:1/-1;grid-row:1;margin-bottom:3px}
   #panel-play>.statline{grid-column:2;grid-row:2;margin-bottom:0}
   #panel-play>.entry{grid-column:2;grid-row:3 / span 2;align-self:stretch;margin:0;padding:6px 9px 7px}
@@ -354,7 +354,7 @@ html[data-theme=light] #p8-since-bb{color:#b51f4a;}html[data-theme=light] #p8-si
 #panel-play .p8-games-form .p8-measure{margin-top:0;padding:3px 0 2px;line-height:1.3;min-height:32px;}
 
 #panel-play .button-grid .keywrap>.key{height:var(--stage18-key-height,116px)!important;overflow:hidden;}
-#panel-play .button-grid .key:is(.grape,.cherry) .fruit{height:58px;top:7px;left:50%;width:96px;transform:translateX(-50%);filter:drop-shadow(0 2px 2px #00160e80);}
+#panel-play .button-grid .key:is(.grape,.cherry) .fruit{height:58px;top:var(--stage18-fruit-top,7px);left:50%;width:96px;transform:translateX(-50%);filter:drop-shadow(0 2px 2px #00160e80);}
 #panel-play .button-grid .key:is(.grape,.cherry) .count{bottom:24px!important;font-size:20px;font-family:Georgia,"Times New Roman",serif;color:#fff0ca;text-shadow:0 1px 1px #fff8e54d,0 2px 2px #281206b0;}
 #panel-play .button-grid .key .key-rate{bottom:8px!important;line-height:1.2;font-size:12px;white-space:nowrap;pointer-events:none;font-family:Georgia,"Times New Roman",serif;color:#fff0ca;text-shadow:0 2px 3px #0009;}
 #panel-play .button-grid .key:is(.bb,.rb) .count{bottom:17px;font-family:Georgia,"Times New Roman",serif;color:#fff0ca;text-shadow:0 1px 1px #fff8e54d,0 2px 2px #281206b0;font-size:20px;line-height:1.08;letter-spacing:0;font-weight:800;}
